@@ -5,6 +5,7 @@ import java.util.Random;
 
 
 public class Lab0 {
+
     public void CompareValues(Scanner amount) {
 
         System.out.print("please enter the amount of numbers:");
