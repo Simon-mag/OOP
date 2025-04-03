@@ -20,6 +20,7 @@ public class Beverage {
     public void setName(String name)  {this.name = name;}
     public void setPrice(double price){this.price = price;}
     public void setStock(int stock)   {this.stock = stock;}
+    public void increaseTimesSelected(){++this.timesSelected;}
 
     public String getName()  {return name;}
     public double getPrice()  {return price;}
