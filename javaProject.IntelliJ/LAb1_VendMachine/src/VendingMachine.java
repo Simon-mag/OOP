@@ -1,10 +1,14 @@
 import java.util.Scanner;
 
-public class Vending_Machine {
+public class VendingMachine {
 
     private final Beverage[] beverages;
     private double totalPrice;
     private int totalPurchases;
+
+    public VendingMachine(Beverage[] list){
+        this.beverages = list;
+    }
 
     public void run(){
         Scanner scanner = new Scanner(System.in);
@@ -25,19 +29,20 @@ public class Vending_Machine {
                 System.out.println("\nThis item is out of stock!\n");
                 continue;
             }
-
             dispenceChoice(choice);
+
         }
         printSummary();
         scanner.close();
     }
 
-    public Vending_Machine(Beverage[] list){
-        this.beverages = list;
-    }
 
     private void displayMenu(){
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Vending Menu:");
         int i = 1;
         for(Beverage temp : beverages){
@@ -48,12 +53,12 @@ public class Vending_Machine {
     }
 
     private void dispenceChoice(int choice){
-        --choice;
-        System.out.printf("Fetching %s >> Dispensed!%n%n", beverages[choice].getName());
+        Beverage beverage = beverages[choice-1];
+        System.out.printf("Fetching %s >> %n%n", beverage.getName());
 
-        totalPrice += beverages[choice].getPrice();
-        beverages[choice].increaseTimesSelected();
-        beverages[choice].decreaseStock();
+        totalPrice += beverage.getPrice();
+        beverage.increaseTimesSelected();
+        beverage.decreaseStock();
         ++totalPurchases;
     }
 

@@ -11,12 +11,16 @@ public class LoadMachine {
         Beverage capriSonne = new Beverage("Capri-Sonne",10,random.nextInt(20)+1);
         Beverage vatten = new Beverage("Vatten",10,random.nextInt(20)+1);
         Beverage fantaExotic = new Beverage("Fanta Exotic",50,random.nextInt(20)+1);
-
-        beverages[0] = cola;
-        beverages[1] = fanta;
-        beverages[2] = fantaExotic;
-        beverages[3] = capriSonne;
-        beverages[4] = vatten;
+        if(size > 0)
+            beverages[0] = cola;
+        if(size > 1)
+            beverages[1] = fanta;
+        if(size > 2)
+            beverages[2] = fantaExotic;
+        if(size > 3)
+            beverages[3] = capriSonne;
+        if(size > 4)
+            beverages[4] = vatten;
 
         return beverages;
     }
