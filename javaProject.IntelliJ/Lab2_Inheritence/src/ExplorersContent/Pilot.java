@@ -19,8 +19,8 @@ public class Pilot extends SpaceExplorer{
         System.out.println("<> Accessing mission control <>");
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s%s is doing %sing work",role,getName(),role);
+            System.out.printf("%s %s is doing %sing work%n%n",role,getName(),role);
         else
-            System.out.printf("%s%s is free right now",role,getName());
+            System.out.printf("%s %s is free right now%n%n",role,getName());
     }
 }
