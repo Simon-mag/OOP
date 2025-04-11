@@ -11,8 +11,8 @@ public class Main {
 
         System.out.println("Hello and welcome too my crejsy java functions!");
 
-        // print.printPersonInfo(Animal.iAmCat());
-        // print.printPersonInfo(Animal.iAmDog());
+         print.printPersonInfo(Animal.iAmCat());
+         print.printPersonInfo(Animal.iAmDog());
 
 
     }

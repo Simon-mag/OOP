@@ -6,13 +6,9 @@ public class Engineer extends SpaceExplorer{
 
     private final String role = "Engineer";
 
-    public Engineer(String name) {
-        super(name,"Engineer");
-    }
+    public Engineer(String name){ super(name,"Engineer"); }
 
-    public Engineer(String name, String mission){
-        super(name, "Engineer", mission);
-    }
+    public Engineer(String name, String mission){ super(name, "Engineer", mission); }
 
     @Override
     public void reportStatus() {
