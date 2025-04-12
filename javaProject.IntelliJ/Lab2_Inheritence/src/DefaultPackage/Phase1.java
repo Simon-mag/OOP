@@ -1,5 +1,7 @@
 package DefaultPackage;
 import ExplorersContent.*;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -9,7 +11,7 @@ public class Phase1 {
     private ArrayList<String> completedMissions = new ArrayList<>();
 
     private enum commands{
-        command,
+        menu,
         startMission,
         reportStatus,
         completeMission,
@@ -18,13 +20,8 @@ public class Phase1 {
 
     public void startPhase1(){
         Scanner inputs = new Scanner(System.in);
-        System.out.println("<><><><><><><><><><><><><><><>");
-        System.out.println("Initiating Phase 1: Explorers");
-        System.out.println("<><><><><><><><><><><><><><><>\n");
-        Delay.delay();
-        System.out.println("~~~~~~ Create your explorers ~~~~~~\n");
-        Delay.delay();
 
+        printStartPhase1();
         createExplorer(inputs);
         printListWithExplorers();
 
@@ -35,7 +32,7 @@ public class Phase1 {
     }
 
     public void createExplorer(Scanner input){
-        System.out.print("Enter number of Explorers: ");
+        Delay.slowOutForInput("Enter number of Explorers: ");
         int amount = input.nextInt();
         input.nextLine();
 
@@ -46,6 +43,8 @@ public class Phase1 {
             String rank = input.nextLine().toLowerCase();
             System.out.printf("Enter %s %s(s) mission: ",rank,name);
             String mission = input.nextLine();
+            System.out.println();
+            Delay.delay();
 
             switch (rank) {
                 case "pilot" -> explorers.add(new Pilot(name, mission));
@@ -58,27 +57,86 @@ public class Phase1 {
     }
 
     void printListWithExplorers(){
-        System.out.println("\n\n::Registry of explorers::");
+        Delay.slowOut("\n::Registry of explorers::");
         for (SpaceExplorer explorer : explorers) {
             Delay.delay();
             System.out.printf("-- ID: %d <> Rank: %-8s <> Name: %-6s <> Mission: %-10s --%n",
                     explorer.getId(), explorer.getRank(), explorer.getName(), explorer.getMission());
         }
+        System.out.println();
     }
 
     public void missionControl(Scanner input){
-        System.out.println("<> Welcome to mission control <>");
-        Delay.delay();
 
-        System.out.println("=====================");
-        System.out.println("= 1: Start missions =");
-        System.out.println("=====================");
-        System.out.println("=================");
-        System.out.println("=================");
-        System.out.println("=====================");
+        int choice;
 
+        while(true){
+            printMenus(commands.menu);
 
+            try{
+                choice = input.nextInt();
+                if(choice >= 1 && choice <=4) {
+                    commands selectedCommand = switch (choice) {
+                        case 1 -> commands.startMission;
+                        case 2 -> commands.reportStatus;
+                        case 3 -> commands.completeMission;
+                        case 4 -> commands.exit;
+                        default -> commands.menu;
+                    };
+                    printMenus(selectedCommand);
+                    if(selectedCommand == commands.exit){
+                        Delay.slowOut("<> Exiting mission control <>\n");
+                        break;
+                    }
+                }
+                else
+                    Delay.slowOut("Invalid option, choose from menu! (1-4)\n");
+            }catch (InputMismatchException e){
+                Delay.slowOut("Invalid input, choose from menu! (1-4)\n");
+                input.nextLine();
+            }
+        }
     }
 
+    private void printMenus(commands command) {
+
+        switch(command){
+            case menu -> {
+                System.out.println();
+                Delay.slowOut("<> Welcome to mission control <>");
+                Delay.delay();
+                System.out.println("\n   ==========================");
+                System.out.println("   = 1: Start missions      =");
+                System.out.println("   = 2: Mission status      =");
+                System.out.println("   = 3: Complete missions   =");
+                System.out.println("   = 4: Exit                =");
+                System.out.println("   ==========================");
+                Delay.slowOutForInput("   Choose option (1-4):");
+            }
+            case startMission ->{
+                Delay.slowOut("<> Accessing mission control <>");
+                for(SpaceExplorer explorer : explorers)
+                   explorer.startMission();
+            }
+            case reportStatus ->{
+                Delay.slowOut("<> Accessing mission control <>");
+                for(SpaceExplorer explorer : explorers)
+                    explorer.reportStatus();
+            }
+            case completeMission ->{
+                Delay.slowOut("<> Accessing mission control <>");
+                for(SpaceExplorer explorer : explorers)
+                    explorer.completeMission();
+            }
+        }
+        Delay.delay();
+    }
+    public void printStartPhase1(){
+        Delay.slowOut("<><><><><><><><><><><><><><><>");
+        Delay.slowOut("Initiating Phase 1: Explorers");
+        Delay.slowOut("<><><><><><><><><><><><><><><>\n");
+        Delay.slowOut("~~~~~~ Create your explorers ~~~~~~\n");
+        Delay.delay();
+    }
 
 }

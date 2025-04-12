@@ -12,12 +12,11 @@ public class Engineer extends SpaceExplorer{
 
     @Override
     public void reportStatus() {
-        System.out.println("<> Accessing mission control <>");
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s %s is doing %sing work%n%n",role,getName(),role);
+            System.out.printf("%s %s is doing %sing work (%s)%n",role,getName(),role,getMission());
         else
-            System.out.printf("%s %s is free right now%n%n",role,getName());
+            System.out.printf("%s %s is free right now%n",role,getName());
     }
 
 

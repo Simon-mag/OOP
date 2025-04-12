@@ -27,31 +27,27 @@ public class SpaceExplorer {
     }
 
     public void startMission(){
-        System.out.println("<> Accessing mission control <>");
         Delay.delay();
         if(!onMission) {
-            System.out.printf("%s is starting his mission: %s%n%n", name, mission);
+            System.out.printf("%s is starting their mission: %s%n", name, mission);
             onMission = true;
         } else
-            System.out.printf("%s is already on a mission %nMission: %s%n%n",name,mission);
-
+            System.out.printf("%s is already on a mission! Mission: %s%n",name,mission);
     }
     public void completeMission(){
-        System.out.println("<> Accessing mission control <>");
         Delay.delay();
         if(onMission) {
-            System.out.printf("%s has completed their mission: %s%n%n", name, mission);
+            System.out.printf("%s has completed their mission: %s%n", name, mission);
             onMission = false;
         }else
-            System.out.printf("%s is not currently on a mission...%n%n", name);
+            System.out.printf("%s is not currently on a mission...%n", name);
     }
     public void reportStatus(){
-        System.out.println("<> Accessing mission control <>");
         Delay.delay();
         if(onMission)
-            System.out.printf("%s is currently busy!%n%n",name);
+            System.out.printf("%s is currently busy!%n",name);
         else
-            System.out.printf("%s is ready for deployment!%n%n",name);
+            System.out.printf("%s is ready for deployment!%n",name);
     }
 
 
