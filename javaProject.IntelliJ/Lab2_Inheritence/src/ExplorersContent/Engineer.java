@@ -4,7 +4,7 @@ import DefaultPackage.Delay;
 
 public class Engineer extends SpaceExplorer{
 
-    private final String role = "Engineer";
+    private final String rank = "Engineer";
 
     public Engineer(String name){ super(name,"Engineer"); }
 
@@ -14,9 +14,9 @@ public class Engineer extends SpaceExplorer{
     public void reportStatus() {
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s %s is doing %sing work (%s)%n",role,getName(),role,getMission());
+            System.out.printf("%s %s is doing %sing work (%s)%n",rank,getName(),rank,getMission());
         else
-            System.out.printf("%s %s is free right now%n",role,getName());
+            System.out.printf("%s %s is free right now%n",rank,getName());
     }
 
 

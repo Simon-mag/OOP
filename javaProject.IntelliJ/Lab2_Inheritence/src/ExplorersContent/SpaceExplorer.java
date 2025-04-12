@@ -7,20 +7,20 @@ public class SpaceExplorer {
     private static int nextId = 1;
     private String name;
     private String mission;
-    protected String rank;
+    protected String profession;
     private boolean onMission = false;
 
 
-    public SpaceExplorer(String name, String rank){
+    public SpaceExplorer(String name, String profession){
         this.name = name;
-        this.rank = rank;
+        this.profession = profession;
         id = nextId;
         ++nextId;
     }
 
-    public SpaceExplorer(String name, String rank, String mission){
+    public SpaceExplorer(String name, String profession, String mission){
         this.name = name;
-        this.rank = rank;
+        this.profession = profession;
         this.mission = mission;
         id = nextId;
         ++nextId;
@@ -53,11 +53,11 @@ public class SpaceExplorer {
 
     public void setName(String name){this.name = name;}
     public void setMission(String mission){this.mission = mission;}
-    public void setRank(String rank){this.rank = rank;}
+    public void setProfession(String profession){this.profession = profession;}
 
     public int getId(){return id;}
     public String getName(){return name;}
-    public String getRank(){return rank;}
+    public String getProfession(){return profession;}
     public String getMission(){return mission;}
     public boolean getOnMission(){return onMission;}
 

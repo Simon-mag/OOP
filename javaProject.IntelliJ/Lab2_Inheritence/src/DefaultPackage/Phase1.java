@@ -27,7 +27,7 @@ public class Phase1 {
 
         missionControl(inputs);
 
-
+        printMissionSummary();
         inputs.close();
     }
 
@@ -39,7 +39,7 @@ public class Phase1 {
         for(int i = 1; i<=amount ; ++i){
             System.out.printf("Enter explorer number %d(s) name: ",i);
             String name = input.nextLine();
-            System.out.printf("Enter %ss rank: ", name);
+            System.out.printf("Enter %ss profession: ", name);
             String rank = input.nextLine().toLowerCase();
             System.out.printf("Enter %s %s(s) mission: ",rank,name);
             String mission = input.nextLine();
@@ -61,7 +61,7 @@ public class Phase1 {
         for (SpaceExplorer explorer : explorers) {
             Delay.delay();
             System.out.printf("-- ID: %d <> Rank: %-8s <> Name: %-6s <> Mission: %-10s --%n",
-                    explorer.getId(), explorer.getRank(), explorer.getName(), explorer.getMission());
+                    explorer.getId(), explorer.getProfession(), explorer.getName(), explorer.getMission());
         }
         System.out.println();
     }
@@ -85,7 +85,7 @@ public class Phase1 {
                     };
                     printMenus(selectedCommand);
                     if(selectedCommand == commands.exit){
-                        Delay.slowOut("<> Exiting mission control <>\n");
+                        Delay.slowOut("<> Exiting Base Command Center <>\n");
                         break;
                     }
                 }
@@ -103,14 +103,14 @@ public class Phase1 {
         switch(command){
             case menu -> {
                 System.out.println();
-                Delay.slowOut("<> Welcome to mission control <>");
+                Delay.slowOut("<><   Base Command Center   ><>");
                 Delay.delay();
-                System.out.println("\n   ==========================");
-                System.out.println("   = 1: Start missions      =");
-                System.out.println("   = 2: Mission status      =");
-                System.out.println("   = 3: Complete missions   =");
-                System.out.println("   = 4: Exit                =");
-                System.out.println("   ==========================");
+                System.out.println("\n   =========================");
+                System.out.println("   = 1: Start missions     =");
+                System.out.println("   = 2: Mission status     =");
+                System.out.println("   = 3: Complete missions  =");
+                System.out.println("   = 4: Exit               =");
+                System.out.println("   =========================");
                 Delay.slowOutForInput("   Choose option (1-4):");
             }
             case startMission ->{
@@ -125,8 +125,10 @@ public class Phase1 {
             }
             case completeMission ->{
                 Delay.slowOut("<> Accessing mission control <>");
-                for(SpaceExplorer explorer : explorers)
+                for(SpaceExplorer explorer : explorers) {
+                    completedMissions.add(explorer.getMission());
                     explorer.completeMission();
+                }
             }
         }
         Delay.delay();
@@ -137,6 +139,13 @@ public class Phase1 {
         Delay.slowOut("<><><><><><><><><><><><><><><>\n");
         Delay.slowOut("~~~~~~ Create your explorers ~~~~~~\n");
         Delay.delay();
+    }
+
+    void printMissionSummary(){
+        Delay.slowOut("<><> Missions Completed <><>\n");
+        for(String mission : completedMissions){
+            Delay.slowOut("** " + mission + " \n");
+        }
     }
 
 }
