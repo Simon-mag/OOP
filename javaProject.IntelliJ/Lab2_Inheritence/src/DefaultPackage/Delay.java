@@ -15,16 +15,14 @@ public class Delay {
     }
 
     public static void slowOut(String message){
-        int interval = 6;
+        playSound();
         for(int i = 0; i < message.length(); ++i){
             char c = message.charAt(i);
             System.out.print(c);
             System.out.flush();
-            if(i % interval == 0)
-                playSound();
 
             try {
-                Thread.sleep(30);
+                Thread.sleep(50);
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
             }
@@ -32,14 +30,13 @@ public class Delay {
         System.out.println();
     }
     public static void slowOutForInput(String message){
-
+        playSound();
         for(char c : message.toCharArray()){
             System.out.print(c);
             System.out.flush();
 
-
             try {
-                Thread.sleep(30);
+                Thread.sleep(50);
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
             }
@@ -48,7 +45,7 @@ public class Delay {
 
     public static void playSound() {
         try {
-            File soundFile = new File("src/DefaultPackage/sounds/keyboard_sound.Wav");
+            File soundFile = new File("src/DefaultPackage/sounds/key_presses.Wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
