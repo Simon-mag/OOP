@@ -37,7 +37,7 @@ public class Delay {
             System.out.flush();
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(80);
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
             }

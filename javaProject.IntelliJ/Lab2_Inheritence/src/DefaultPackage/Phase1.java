@@ -1,6 +1,5 @@
 package DefaultPackage;
 import ExplorersContent.*;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ public class Phase1 {
 
     private enum commands{
         menu,
+        create,
         startMission,
         reportStatus,
         completeMission,
@@ -23,13 +23,14 @@ public class Phase1 {
 
         printStartPhase1();
         createExplorer(inputs);
-        printListWithExplorers();
 
         missionControl(inputs);
 
         printMissionSummary();
         inputs.close();
     }
+
+
 
     public void createExplorer(Scanner input){
         Delay.slowOutForInput("Enter number of Explorers: ");
@@ -50,10 +51,12 @@ public class Phase1 {
                 case "pilot" -> explorers.add(new Pilot(name, mission));
                 case "engineer" -> explorers.add(new Engineer(name, mission));
                 case "astronaut" -> explorers.add(new Astronaut(name, mission));
+                case "commander" -> explorers.add(new Commander(name,mission));
 
                 default -> explorers.add(new SpaceExplorer(name,rank,mission));
             }
         }
+        printListWithExplorers();
     }
 
     void printListWithExplorers(){
@@ -63,27 +66,28 @@ public class Phase1 {
             System.out.printf("-- ID: %d <> Rank: %-8s <> Name: %-6s <> Mission: %-10s --%n",
                     explorer.getId(), explorer.getProfession(), explorer.getName(), explorer.getMission());
         }
+        Delay.delay();
         System.out.println();
     }
 
     public void missionControl(Scanner input){
-
         int choice;
 
         while(true){
-            printMenus(commands.menu);
+            printMenus(commands.menu,input);
 
             try{
                 choice = input.nextInt();
-                if(choice >= 1 && choice <=4) {
+                if(choice >= 1 && choice <=5) {
                     commands selectedCommand = switch (choice) {
-                        case 1 -> commands.startMission;
-                        case 2 -> commands.reportStatus;
-                        case 3 -> commands.completeMission;
-                        case 4 -> commands.exit;
+                        case 1 -> commands.create;
+                        case 2 -> commands.startMission;
+                        case 3 -> commands.reportStatus;
+                        case 4 -> commands.completeMission;
+                        case 5 -> commands.exit;
                         default -> commands.menu;
                     };
-                    printMenus(selectedCommand);
+                    printMenus(selectedCommand, input);
                     if(selectedCommand == commands.exit){
                         Delay.slowOut("<> Exiting Base Command Center <>\n");
                         break;
@@ -98,7 +102,7 @@ public class Phase1 {
         }
     }
 
-    private void printMenus(commands command) {
+    private void printMenus(commands command,Scanner input) {
 
         switch(command){
             case menu -> {
@@ -106,13 +110,16 @@ public class Phase1 {
                 Delay.slowOut("<><   Base Command Center   ><>");
                 Delay.delay();
                 System.out.println("\n   =========================");
-                System.out.println("   = 1: Start missions     =");
-                System.out.println("   = 2: Mission status     =");
-                System.out.println("   = 3: Complete missions  =");
-                System.out.println("   = 4: Exit               =");
+                System.out.println("   = 1: Create explorers   =");
+                System.out.println("   = 2: Start missions     =");
+                System.out.println("   = 3: Mission status     =");
+                System.out.println("   = 4: Complete missions  =");
+                System.out.println("   = 5: Exit               =");
                 System.out.println("   =========================");
-                Delay.slowOutForInput("   Choose option (1-4):");
+                Delay.slowOutForInput("   Choose option (1-5):");
             }
+            case create -> createExplorer(input);
+
             case startMission ->{
                 Delay.slowOut("<> Accessing mission control <>");
                 for(SpaceExplorer explorer : explorers)

@@ -12,7 +12,7 @@ public class Commander extends SpaceExplorer{
         public void reportStatus(){
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s %s is doing %sing work (%s)%n",rank,getName(),rank,getMission());
+            System.out.printf("%s %s is maneging the crew%n",rank,getName());
         else
             System.out.printf("%s %s is free right now%n",rank,getName());
     }
