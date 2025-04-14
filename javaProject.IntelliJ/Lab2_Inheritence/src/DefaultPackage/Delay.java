@@ -2,6 +2,7 @@ package DefaultPackage;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class Delay {
 
@@ -45,7 +46,14 @@ public class Delay {
 
     public static void playSound() {
         try {
+            Random choice = new Random();
+            int pick = (choice.nextInt() % 2) + 1;
             File soundFile = new File("src/DefaultPackage/sounds/key_presses.Wav");
+            switch (pick){
+                case 1 -> soundFile = new File("src/DefaultPackage/sounds/key_presses2.Wav");
+                case 2 -> soundFile = new File("src/DefaultPackage/sounds/key_presses3.Wav");
+                default -> soundFile = new File("src/DefaultPackage/sounds/key_presses.Wav");
+            }
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
