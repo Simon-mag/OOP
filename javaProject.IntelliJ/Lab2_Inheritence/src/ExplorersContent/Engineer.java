@@ -1,5 +1,6 @@
 package ExplorersContent;
 import DefaultPackage.Delay;
+import Missions.Mission;
 
 
 public class Engineer extends SpaceExplorer{
@@ -8,7 +9,7 @@ public class Engineer extends SpaceExplorer{
 
     public Engineer(String name){ super(name,"Engineer"); }
 
-    public Engineer(String name, String mission){ super(name, "Engineer", mission); }
+    public Engineer(String name, Mission mission){ super(name, "Engineer", mission); }
 
     @Override
     public void reportStatus() {

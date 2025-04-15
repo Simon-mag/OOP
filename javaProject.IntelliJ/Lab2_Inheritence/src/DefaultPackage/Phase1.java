@@ -1,5 +1,7 @@
 package DefaultPackage;
 import ExplorersContent.*;
+import Missions.Mission;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 public class Phase1 {
 
     private ArrayList<SpaceExplorer> explorers = new ArrayList<>();
-    private ArrayList<String> completedMissions = new ArrayList<>();
+    private ArrayList<Mission> completedMissions = new ArrayList<Mission>();
 
     private enum commands{
         menu,
@@ -23,10 +25,9 @@ public class Phase1 {
 
         printStartPhase1();
         createExplorer(inputs);
-
         missionControl(inputs);
-
         printMissionSummary();
+
         inputs.close();
     }
 
@@ -37,15 +38,17 @@ public class Phase1 {
         int amount = input.nextInt();
         input.nextLine();
 
+
         for(int i = 1; i<=amount ; ++i){
             System.out.printf("Enter explorer number %d(s) name: ",i);
             String name = input.nextLine();
             System.out.printf("Enter %ss profession: ", name);
             String rank = input.nextLine().toLowerCase();
             System.out.printf("Enter %s %s(s) mission: ",rank,name);
-            String mission = input.nextLine();
+            String missionName = input.nextLine();
             System.out.println();
             Delay.delay();
+            Mission mission = new Mission(missionName);
 
             switch (rank) {
                 case "pilot" -> explorers.add(new Pilot(name, mission));
@@ -150,8 +153,8 @@ public class Phase1 {
 
     void printMissionSummary(){
         Delay.slowOut("<><> Missions Completed <><>\n");
-        for(String mission : completedMissions){
-            Delay.slowOut("** " + mission + " \n");
+        for(Mission mission : completedMissions){
+            Delay.slowOut("** " + mission.getName() + " \n");
         }
     }
 

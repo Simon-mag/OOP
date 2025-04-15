@@ -1,6 +1,6 @@
 package ExplorersContent;
-
 import DefaultPackage.Delay;
+import Missions.Mission;
 
 public class Pilot extends SpaceExplorer{
 
@@ -10,7 +10,7 @@ public class Pilot extends SpaceExplorer{
         super(name,"Pilot");
     }
 
-    public Pilot(String name, String mission){
+    public Pilot(String name, Mission mission){
         super(name, "Pilot", mission);
     }
 

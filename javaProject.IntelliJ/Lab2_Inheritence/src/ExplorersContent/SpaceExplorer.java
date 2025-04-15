@@ -1,12 +1,13 @@
 package ExplorersContent;
 import DefaultPackage.Delay;
+import Missions.Mission;
 
 public class SpaceExplorer {
 
     private final int id;
     private static int nextId = 1;
     private String name;
-    private String mission;
+    private Mission mission;
     protected String profession;
     private boolean onMission = false;
 
@@ -17,8 +18,7 @@ public class SpaceExplorer {
         id = nextId;
         ++nextId;
     }
-
-    public SpaceExplorer(String name, String profession, String mission){
+    public SpaceExplorer(String name, String profession, Mission mission){
         this.name = name;
         this.profession = profession;
         this.mission = mission;
@@ -42,23 +42,16 @@ public class SpaceExplorer {
         }else
             System.out.printf("%s is not currently on a mission...%n", name);
     }
-    public void reportStatus(){
-        Delay.delay();
-        if(onMission)
-            System.out.printf("%s is currently busy!%n",name);
-        else
-            System.out.printf("%s is ready for deployment!%n",name);
-    }
-
+    public void reportStatus(){}
 
     public void setName(String name){this.name = name;}
-    public void setMission(String mission){this.mission = mission;}
+    public void setMission(Mission mission){this.mission = mission;}
     public void setProfession(String profession){this.profession = profession;}
 
     public int getId(){return id;}
     public String getName(){return name;}
     public String getProfession(){return profession;}
-    public String getMission(){return mission;}
+    public Mission getMission(){return mission;}
     public boolean getOnMission(){return onMission;}
 
 }
