@@ -5,7 +5,6 @@ import Missions.MaintenaceMission;
 import Missions.Mission;
 import Vehicles.Rocket;
 import Vehicles.SpaceVehicle;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -212,6 +211,7 @@ public class Phase2User {
                     Delay.slowOut("Invalid input, Choose from team menu!\n");
             }catch (InputMismatchException e){
                 Delay.slowOut("Invalid input, choose from team menu!\n");
+                input.nextLine();
             }
         }
     }

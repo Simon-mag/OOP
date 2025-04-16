@@ -7,8 +7,8 @@ public class Main {
         Phase2User phase2User = new Phase2User();
 
         Delay.slowOut("\n<><> Welcome to the Space Mission Simulator <><>\n");
-        phase1.startPhase1();
-        phase2.startPhase2();
+        //phase1.startPhase1();
+        //phase2.startPhase2();
         phase2User.startPhase2();
 
         Delay.delay();
