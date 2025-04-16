@@ -11,7 +11,7 @@ public class SpaceExplorer {
     protected String profession;
     private boolean onMission = false;
 
-
+    public SpaceExplorer(){id = nextId; ++nextId;};
     public SpaceExplorer(String name, String profession){
         this.name = name;
         this.profession = profession;
@@ -29,15 +29,15 @@ public class SpaceExplorer {
     public void startMission(){
         Delay.delay();
         if(!onMission) {
-            System.out.printf("%s is starting their mission: %s%n", name, mission);
+            System.out.printf("%s is starting their mission: %s%n", name, mission.getName());
             onMission = true;
         } else
-            System.out.printf("%s is already on a mission! Mission: %s%n",name,mission);
+            System.out.printf("%s is already on a mission! Mission: %s%n",name,mission.getName());
     }
     public void completeMission(){
         Delay.delay();
         if(onMission) {
-            System.out.printf("%s has completed their mission: %s%n", name, mission);
+            System.out.printf("%s has completed their mission: %s%n", name, mission.getName());
             onMission = false;
         }else
             System.out.printf("%s is not currently on a mission...%n", name);
@@ -54,4 +54,6 @@ public class SpaceExplorer {
     public Mission getMission(){return mission;}
     public boolean getOnMission(){return onMission;}
 
+    public SpaceExplorer[] getTeam() {return null;}
+    public void performDuty() {}
 }

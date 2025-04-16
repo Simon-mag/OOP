@@ -6,7 +6,7 @@ import Vehicles.SpaceVehicle;
 
 public class Commander extends SpaceExplorer{
     private final String rank = "Commander";
-    SpaceExplorer[] team;
+    private SpaceExplorer[] team;
 
     public Commander(String name){super(name,"Commander");}
     public Commander(String name, Mission mission){super(name,"Commander",mission);}
@@ -29,17 +29,27 @@ public class Commander extends SpaceExplorer{
             Delay.slowOut("insufficient data, either mission or currentRocket is missing!");
             return;
         }
+        Delay.slowOut("Commander " + getName() + " Initializing their role on mission " + getMission().getName() + "\n");
         currentRocket.transportCrew();
         currentRocket.launch();
         currentMission.performMission();
+        System.out.println("\n");
 
         for(SpaceExplorer explorer : team)
             explorer.startMission();
+        System.out.println("\n");
+
         for(SpaceExplorer explorer : team)
             explorer.reportStatus();
+        System.out.println("\n");
+
         for(SpaceExplorer explorer : team)
             explorer.completeMission();
+        System.out.println("\n");
 
         currentRocket.land();
+        Delay.slowOut(rank + " " + getName() + " has completed their mission\n");
     }
+    @Override
+        public SpaceExplorer[] getTeam(){return team;}
 }

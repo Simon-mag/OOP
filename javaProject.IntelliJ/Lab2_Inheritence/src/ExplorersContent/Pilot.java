@@ -18,7 +18,7 @@ public class Pilot extends SpaceExplorer{
     public void reportStatus() {
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s %s have flown around the moon%n", rank,getName());
+            System.out.printf("%s %s have flown around the moon on mission %s%n", rank,getName(),getMission().getName());
         else
             System.out.printf("%s %s is free right now%n", rank,getName());
     }

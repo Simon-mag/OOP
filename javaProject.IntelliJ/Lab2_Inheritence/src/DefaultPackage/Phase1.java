@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Phase1 {
 
-    private ArrayList<SpaceExplorer> explorers = new ArrayList<>();
-    private ArrayList<Mission> completedMissions = new ArrayList<Mission>();
+    ArrayList<SpaceExplorer> explorers = new ArrayList<>();
+    private final ArrayList<Mission> completedMissions = new ArrayList<Mission>();
 
     private enum commands{
         menu,
@@ -26,14 +26,14 @@ public class Phase1 {
         printStartPhase1();
         createExplorer(inputs);
         missionControl(inputs);
-        printMissionSummary();
+        printMissionSummary(completedMissions);
 
         inputs.close();
     }
 
 
 
-    public void createExplorer(Scanner input){
+    private void createExplorer(Scanner input){
         Delay.slowOutForInput("Enter number of Explorers: ");
         int amount = input.nextInt();
         input.nextLine();
@@ -62,18 +62,18 @@ public class Phase1 {
         printListWithExplorers();
     }
 
-    void printListWithExplorers(){
+    private void printListWithExplorers(){
         Delay.slowOut("\n::Registry of explorers::");
         for (SpaceExplorer explorer : explorers) {
             Delay.delay();
             System.out.printf("-- ID: %d <> Rank: %-8s <> Name: %-6s <> Mission: %-10s --%n",
-                    explorer.getId(), explorer.getProfession(), explorer.getName(), explorer.getMission());
+                    explorer.getId(), explorer.getProfession(), explorer.getName(), explorer.getMission().getName());
         }
         Delay.delay();
         System.out.println();
     }
 
-    public void missionControl(Scanner input){
+    private void missionControl(Scanner input){
         int choice;
 
         while(true){
@@ -136,14 +136,15 @@ public class Phase1 {
             case completeMission ->{
                 Delay.slowOut("<> Accessing mission control <>");
                 for(SpaceExplorer explorer : explorers) {
-                    completedMissions.add(explorer.getMission());
+                    if(explorer.getOnMission())
+                        completedMissions.add(explorer.getMission());
                     explorer.completeMission();
                 }
             }
         }
         Delay.delay();
     }
-    public void printStartPhase1(){
+    private void printStartPhase1(){
         Delay.slowOut("<><><><><><><><><><><><><><><>");
         Delay.slowOut("Initiating Phase 1: Explorers");
         Delay.slowOut("<><><><><><><><><><><><><><><>\n");
@@ -151,11 +152,10 @@ public class Phase1 {
         Delay.delay();
     }
 
-    void printMissionSummary(){
+    public void printMissionSummary(ArrayList<Mission> completedMissions){
         Delay.slowOut("<><> Missions Completed <><>\n");
         for(Mission mission : completedMissions){
             Delay.slowOut("** " + mission.getName() + " \n");
         }
     }
-
 }

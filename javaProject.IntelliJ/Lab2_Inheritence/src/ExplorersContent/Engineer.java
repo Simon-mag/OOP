@@ -15,7 +15,7 @@ public class Engineer extends SpaceExplorer{
     public void reportStatus() {
         Delay.delay();
         if(getOnMission())
-            System.out.printf("%s %s is maintaining critical systems in base%n",rank,getName());
+            System.out.printf("%s %s is maintaining critical systems in base on mission %s%n",rank,getName(),getMission().getName());
         else
             System.out.printf("%s %s is free right now%n",rank,getName());
     }
