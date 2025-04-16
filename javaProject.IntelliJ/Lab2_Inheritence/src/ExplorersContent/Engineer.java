@@ -5,14 +5,13 @@ import Missions.Mission;
 
 public class Engineer extends SpaceExplorer{
 
-    private final String rank = "Engineer";
-
     public Engineer(String name){ super(name,"Engineer"); }
 
     public Engineer(String name, Mission mission){ super(name, "Engineer", mission); }
 
     @Override
     public void reportStatus() {
+        String rank = "Engineer";
         Delay.delay();
         if(getOnMission())
             System.out.printf("%s %s is maintaining critical systems in base on mission %s%n",rank,getName(),getMission().getName());

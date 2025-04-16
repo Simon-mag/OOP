@@ -11,7 +11,7 @@ public class SpaceExplorer {
     protected String profession;
     private boolean onMission = false;
 
-    public SpaceExplorer(){id = nextId; ++nextId;};
+    public SpaceExplorer(){id = nextId; ++nextId;}
     public SpaceExplorer(String name, String profession){
         this.name = name;
         this.profession = profession;
@@ -47,6 +47,7 @@ public class SpaceExplorer {
     public void setName(String name){this.name = name;}
     public void setMission(Mission mission){this.mission = mission;}
     public void setProfession(String profession){this.profession = profession;}
+    public void setOnMission(boolean onMission){this.onMission = onMission;}
 
     public int getId(){return id;}
     public String getName(){return name;}

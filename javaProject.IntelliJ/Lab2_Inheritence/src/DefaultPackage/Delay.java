@@ -23,7 +23,7 @@ public class Delay {
             System.out.flush();
 
             try {
-                Thread.sleep(40);
+                Thread.sleep(40); //40
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
             }
@@ -37,7 +37,7 @@ public class Delay {
             System.out.flush();
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(50); //50
             }catch (InterruptedException e){
                 Thread.currentThread().interrupt();
             }

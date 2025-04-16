@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Phase2 {
     Phase1 phase1 = new Phase1();
-    private final ArrayList<Mission> completedMissions = new ArrayList<Mission>();
+    private final ArrayList<Mission> completedMissions = new ArrayList<>();
 
 
     public void startPhase2(){

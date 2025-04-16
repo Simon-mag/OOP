@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Phase1 {
 
     ArrayList<SpaceExplorer> explorers = new ArrayList<>();
-    private final ArrayList<Mission> completedMissions = new ArrayList<Mission>();
+    private final ArrayList<Mission> completedMissions = new ArrayList<>();
 
     private enum commands{
         menu,
@@ -17,7 +17,7 @@ public class Phase1 {
         startMission,
         reportStatus,
         completeMission,
-        exit;
+        exit
     }
 
     public void startPhase1(){
@@ -97,9 +97,9 @@ public class Phase1 {
                     }
                 }
                 else
-                    Delay.slowOut("Invalid option, choose from menu! (1-4)\n");
+                    Delay.slowOut("Invalid option, choose from menu! (1-5)\n");
             }catch (InputMismatchException e){
-                Delay.slowOut("Invalid input, choose from menu! (1-4)\n");
+                Delay.slowOut("Invalid input, choose from menu! (1-5)\n");
                 input.nextLine();
             }
         }

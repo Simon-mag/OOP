@@ -4,8 +4,6 @@ import Missions.Mission;
 
 public class Pilot extends SpaceExplorer{
 
-    private final String rank = "Pilot";
-
     public Pilot(String name) {
         super(name,"Pilot");
     }
@@ -16,6 +14,7 @@ public class Pilot extends SpaceExplorer{
 
     @Override
     public void reportStatus() {
+        String rank = "Pilot";
         Delay.delay();
         if(getOnMission())
             System.out.printf("%s %s have flown around the moon on mission %s%n", rank,getName(),getMission().getName());

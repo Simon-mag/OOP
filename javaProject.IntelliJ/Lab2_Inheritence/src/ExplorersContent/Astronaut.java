@@ -4,8 +4,6 @@ import Missions.Mission;
 
 public class Astronaut extends SpaceExplorer{
 
-    private final String rank = "Astronaut";
-
     public Astronaut(String name) {
         super(name,"Astronaut");
     }
@@ -16,6 +14,7 @@ public class Astronaut extends SpaceExplorer{
 
     @Override
     public void reportStatus() {
+        String rank = "Astronaut";
         Delay.delay();
         if(getOnMission())
             System.out.printf("%s %s is exploring new grounds in space on mission %s%n", rank,getName(),getMission().getName());
