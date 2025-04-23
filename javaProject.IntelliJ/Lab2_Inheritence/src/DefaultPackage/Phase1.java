@@ -1,5 +1,6 @@
 package DefaultPackage;
 import ExplorersContent.*;
+import Missions.MaintenaceMission;
 import Missions.Mission;
 
 import java.util.InputMismatchException;
@@ -48,7 +49,7 @@ public class Phase1 {
             String missionName = input.nextLine();
             System.out.println();
             Delay.delay();
-            Mission mission = new Mission(missionName);
+            Mission mission = new MaintenaceMission(missionName);
 
             switch (rank) {
                 case "pilot" -> explorers.add(new Pilot(name, mission));
