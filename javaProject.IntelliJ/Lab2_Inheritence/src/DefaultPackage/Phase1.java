@@ -56,7 +56,9 @@ public class Phase1 {
                 case "astronaut" -> explorers.add(new Astronaut(name, mission));
                 case "commander" -> explorers.add(new Commander(name,mission));
 
-                default -> explorers.add(new SpaceExplorer(name,rank,mission));
+                default -> {
+                    return;
+                }
             }
         }
         printListWithExplorers();

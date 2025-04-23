@@ -40,7 +40,7 @@ public class Phase2 {
 
         Delay.slowOut(":: Team 1 <> Executing mission " + explorationMission.getName());
         printStartMission(explorationCommander);
-        Delay.slowOut(":: Team 2 <> Executing mission " + explorationMission.getName());
+        Delay.slowOut(":: Team 2 <> Executing mission " + maintenanceMission.getName());
         printStartMission(maintenanceCommander);
 
         phase1.printMissionSummary(completedMissions);

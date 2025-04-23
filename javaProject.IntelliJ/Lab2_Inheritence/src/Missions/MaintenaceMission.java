@@ -10,7 +10,7 @@ public class MaintenaceMission extends Mission {
     }
 
     @Override
-        public void performMission(){
+    public void performMission(){
         Delay.slowOut("Performing maintenance on " + getDestination() + " for " + getDurationDays() + " days...");
     }
 }

@@ -2,7 +2,7 @@ package Missions;
 
 import Vehicles.SpaceVehicle;
 
-public class Mission {
+public abstract class Mission {
     private String destination;
     private int durationDays;
     private String name;

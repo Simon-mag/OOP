@@ -15,6 +15,21 @@ public class Delay {
         }
     }
 
+//    private static void slowOutNoEndline(String message, int delay) {
+//        playSound();
+//        for(int i = 0; i < message.length(); ++i){
+//            char c = message.charAt(i);
+//            System.out.print(c);
+//            System.out.flush();
+//
+//            try {
+//                Thread.sleep(delay); //40
+//            }catch (InterruptedException e){
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+//    }
+
     public static void slowOut(String message){
         playSound();
         for(int i = 0; i < message.length(); ++i){

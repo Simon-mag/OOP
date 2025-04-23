@@ -10,7 +10,7 @@ public class ExplorationMission extends Mission{
     }
 
     @Override
-        public void performMission(){
+    public void performMission(){
         Delay.slowOut("Exploring " + getDestination() + " for " + getDurationDays() + " days...");
-        }
+    }
 }

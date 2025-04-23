@@ -2,7 +2,7 @@ package ExplorersContent;
 import DefaultPackage.Delay;
 import Missions.Mission;
 
-public class SpaceExplorer {
+public abstract class SpaceExplorer {
 
     private final int id;
     private static int nextId = 1;
