@@ -1,4 +1,5 @@
 package BankInteraction;
+import myExceptions.*;
 
 public class BankFunctions {
 
@@ -8,33 +9,33 @@ public class BankFunctions {
     public BankFunctions(double balance){this.balance = balance;}
 
 
-    public void deposit(double amount) throws Exception {
-        assert (amount > 0) : "amount less or equal to zero";
+    public void deposit(double amount) throws UnknownTransactionTypeException {
+        //assert (amount > 0) : "amount less or equal to zero";
 
         if(amount > 0)
             balance += amount;
         else
-            throw new Exception("amount less or equal to zero");
+            throw new UnknownTransactionTypeException("amount less or equal to zero");
     }
 
-    public void withdraw(double amount) throws Exception{
-        assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
+    public void withdraw(double amount) throws UnknownTransactionTypeException{
+        //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
 
         if( amount > 0 && (balance-amount > 0) )
             balance -= amount;
         else
-            throw new Exception("not enough balance");
+            throw new UnknownTransactionTypeException("not enough balance");
     }
-    public void transferMoney(double amount) throws Exception {
+    public void transferMoney(double amount) throws InvalidTransactionException {
         try {
             withdraw(amount);
         }catch (Exception e){
-            throw new Exception("Can't transfer, insufficient funds");
+            e.printStackTrace();
+            throw new InvalidTransactionException("Can't transfer, insufficient funds");
         }
     }
 
-    public double checkBalance(){return balance;}
-
+    public void checkBalance(){System.out.printf("You have %.2f kr left in your account%n", balance);}
 
     public void printMenu(){
         System.out.println("---- Your Bank Menu ----\n");
