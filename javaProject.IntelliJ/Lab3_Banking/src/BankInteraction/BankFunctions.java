@@ -9,28 +9,39 @@ public class BankFunctions {
     public BankFunctions(double balance){this.balance = balance;}
 
 
-    public void deposit(double amount) throws UnknownTransactionTypeException {
+    public void deposit(double amount) throws InvalidTransactionException {
         //assert (amount > 0) : "amount less or equal to zero";
 
         if(amount > 0)
             balance += amount;
         else
-            throw new UnknownTransactionTypeException("amount less or equal to zero");
+            throw new InvalidTransactionException("Amount less or equal to zero");
     }
 
-    public void withdraw(double amount) throws UnknownTransactionTypeException{
+    public void withdraw(double amount) throws InvalidTransactionException{
         //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
 
-        if( amount > 0 && (balance-amount > 0) )
+        if( amount > 0 && (balance-amount >= 0) ) {
             balance -= amount;
-        else
-            throw new UnknownTransactionTypeException("not enough balance");
+            System.out.printf("Withdrew: %.2f kr %n",amount);
+        }
+        else {
+            if(amount <= 0)
+                throw new InvalidTransactionException("Must be a number higher than zero!");
+            throw new InvalidTransactionException("Not enough balance!");
+        }
     }
+
     public void transferMoney(double amount) throws InvalidTransactionException {
-        try {
-            withdraw(amount);
-        }catch (Exception e){
-            e.printStackTrace();
+        //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
+
+        if(amount > 0 && balance-amount >= 0) {
+            balance -= amount;
+            System.out.printf("Transferred: %.2f kr %n",amount);
+        }
+        else{
+            if (amount <= 0)
+                throw new InvalidTransactionException("Must be a positive number above zero");
             throw new InvalidTransactionException("Can't transfer, insufficient funds");
         }
     }
@@ -46,7 +57,6 @@ public class BankFunctions {
         System.out.println("--- 4: check balance ---");
         System.out.println("--- 5: Exit          ---");
         System.out.println("------------------------");
-        System.out.print("Choose Transaction: ");
     }
 
 

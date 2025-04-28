@@ -9,63 +9,83 @@ public class BankUI {
     ArrayList<Throwable> errorHistory = new ArrayList<>();
     BankFunctions bankFunctions = new BankFunctions();
 
+
     public void run() {
         Scanner input = new Scanner(System.in);
-        int choice = 0;
-        double amount;
-        boolean run = true;
+        int choice;
 
-        while (run) {
-
+        System.out.println("Welcome to Your Personal Bank App!\n");
+        while (true) {
             bankFunctions.printMenu();
-            try {
-                choice = input.nextInt();
-                input.nextLine();
-                switch (choice) {
 
-                    case 1 -> bankFunctions.deposit(handleAmountInput(input));
-                    case 2 -> bankFunctions.withdraw(handleAmountInput(input));
-                    case 3 -> bankFunctions.transferMoney(handleAmountInput(input));
-                    case 4 -> bankFunctions.checkBalance();
-                    case 5 -> run = false;
-                    default -> throw new UnknownTransactionTypeException("Invalid menu choice!");
-                }
-            }catch (InvalidTransactionException e){
-                InsertErrors(e);
-                System.out.println("%s must be Positive!\n");
+            try {
+                choice = handleTransaction(input);
+                if(choice == 5){ break; }
+                handleChoice(choice,input);
             }
-            catch (UnknownTransactionTypeException e){
-                InsertErrors(e);
-                System.out.println("Invalid input, choose from menu!\n");
-            } catch (InputMismatchException e){
-                InsertErrors(e);
-                input.nextLine();
-                System.out.printf("Invalid type: %s!",e);
-            } finally {
+            catch (InvalidTransactionException | InputMismatchException | NumberFormatException e){
+                errorHistory.add(e);
+                System.out.println(e.getMessage());
+            }catch (Exception e){
+                errorHistory.add(e);
+                System.out.println("Unexpected error occurred: " + e.getMessage());
+            }
+            finally {
                 System.out.println("--Logging action--\n\n");
             }
         }
+        printErrors();
         input.close();
+        System.out.println("Exiting Bank...");
     }
 
-    private double handleAmountInput(Scanner input){
+    private void handleChoice(int choice, Scanner input){
+        switch (choice) {
+            case 1 -> bankFunctions.deposit(handleAmountInput(input));
+            case 2 -> bankFunctions.withdraw(handleAmountInput(input));
+            case 3 -> bankFunctions.transferMoney(handleAmountInput(input));
+            case 4 -> bankFunctions.checkBalance();
+            default -> throw new UnknownTransactionTypeException("Choose from menu!\n");
+        }
+    }
+    private double handleAmountInput(Scanner input) throws NumberFormatException{
         System.out.print("Enter amount: ");
-        String amount = "";
-        double intAmount = 0;
-
+        String amount;
+        double amountValue;
         try {
             amount = input.nextLine().trim();
-            intAmount = Integer.parseInt(amount);
+            amountValue = Integer.parseInt(amount);
         } catch (NumberFormatException e) {
-            errorHistory.add(e);
-            System.out.println("Invalid input! (must be a number)");
+            throw new NumberFormatException("Invalid input! (must be a number)\n");
+
         }
-        return (intAmount);
+        return (amountValue);
     }
 
-    private void InsertErrors(Exception e){
-        //e.printStackTrace();
-        errorHistory.add(e);
+    private int handleTransaction(Scanner input) throws UnknownTransactionTypeException{
+        System.out.print("Choose Transaction: ");
+        String choice = "";
+        int transaction;
+        try {
+            choice = input.nextLine();
+            transaction = Integer.parseInt(choice);
+        }catch (NumberFormatException e){
+            throw new UnknownTransactionTypeException(choice);
+        }
+        return transaction;
     }
+
+    private void printErrors(){
+        System.out.println("--- Tracing of Caught Errors during session ---");
+        for (Throwable error : errorHistory){
+            System.out.println("\n<><><><><><><><><><><><><><><><><><><><><><><><><>");
+            System.out.printf("%s %s%n",error.getClass().getSimpleName(),error.getMessage());
+
+            for (StackTraceElement call : error.getStackTrace()){
+                System.out.printf("\t at %s%n",call);
+            }
+        }
+    }
+
 }
 
