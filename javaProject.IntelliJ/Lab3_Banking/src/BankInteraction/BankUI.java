@@ -39,28 +39,6 @@ public class BankUI {
         System.out.println("Exiting Bank...");
     }
 
-    private void handleChoice(int choice, Scanner input){
-        switch (choice) {
-            case 1 -> bankFunctions.deposit(handleAmountInput(input));
-            case 2 -> bankFunctions.withdraw(handleAmountInput(input));
-            case 3 -> bankFunctions.transferMoney(handleAmountInput(input));
-            case 4 -> bankFunctions.checkBalance();
-            default -> throw new UnknownTransactionTypeException("Choose from menu!\n");
-        }
-    }
-    private double handleAmountInput(Scanner input) throws NumberFormatException{
-        System.out.print("Enter amount: ");
-        String amount;
-        double amountValue;
-        try {
-            amount = input.nextLine().trim();
-            amountValue = Integer.parseInt(amount);
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Invalid input! (must be a number)\n");
-
-        }
-        return (amountValue);
-    }
 
     private int handleTransaction(Scanner input) throws UnknownTransactionTypeException{
         System.out.print("Choose Transaction: ");
@@ -75,15 +53,40 @@ public class BankUI {
         return transaction;
     }
 
+
+    private void handleChoice(int choice, Scanner input){
+        switch (choice) {
+            case 1 -> bankFunctions.deposit(handleAmountInput(input));
+            case 2 -> bankFunctions.withdraw(handleAmountInput(input));
+            case 3 -> bankFunctions.transferMoney(handleAmountInput(input));
+            case 4 -> bankFunctions.checkBalance();
+            default -> {
+                System.out.println("Choose From Menu!\n");
+                throw new UnknownTransactionTypeException(choice + "");
+            }
+        }
+    }
+
+    private double handleAmountInput(Scanner input) throws NumberFormatException{
+        System.out.print("Enter amount: ");
+        String amount;
+        double amountValue;
+        try {
+            amount = input.nextLine().trim();
+            amountValue = Integer.parseInt(amount);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Invalid input! (must be a number)\n");
+
+        }
+        return (amountValue);
+    }
+    
     private void printErrors(){
         System.out.println("--- Tracing of Caught Errors during session ---");
         for (Throwable error : errorHistory){
             System.out.println("\n<><><><><><><><><><><><><><><><><><><><><><><><><>");
             System.out.printf("%s %s%n",error.getClass().getSimpleName(),error.getMessage());
-
-            for (StackTraceElement call : error.getStackTrace()){
-                System.out.printf("\t at %s%n",call);
-            }
+            error.printStackTrace();
         }
     }
 

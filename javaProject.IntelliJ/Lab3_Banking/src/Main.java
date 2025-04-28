@@ -7,8 +7,5 @@ public class Main {
 
         bankUI.run();
 
-
-
-
     }
 }
