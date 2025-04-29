@@ -19,7 +19,7 @@ public class BankFunctions {
     }
 
     public void withdraw(double amount) throws InvalidTransactionException{
-        //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
+       //assert ( amount > 0 && (balance-amount > 0) ) : "assert not enough balance!";
 
         if( amount > 0 && (balance-amount >= 0) ) {
             balance -= amount;
@@ -51,11 +51,11 @@ public class BankFunctions {
     public void printMenu(){
         System.out.println("---- Your Bank Menu ----\n");
         System.out.println("------------------------");
-        System.out.println("--- 1: Deposit       ---");
-        System.out.println("--- 2: withdraw      ---");
-        System.out.println("--- 3: Transfer      ---");
-        System.out.println("--- 4: check balance ---");
-        System.out.println("--- 5: Exit          ---");
+        System.out.println("---    Deposit       ---");
+        System.out.println("---    Withdraw      ---");
+        System.out.println("---    Transfer      ---");
+        System.out.println("---    Balance       ---");
+        System.out.println("---    Exit          ---");
         System.out.println("------------------------");
     }
 

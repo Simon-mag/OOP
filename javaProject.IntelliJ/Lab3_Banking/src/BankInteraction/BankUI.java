@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class BankUI {
     ArrayList<Throwable> errorHistory = new ArrayList<>();
-    BankFunctions bankFunctions = new BankFunctions();
+    BankFunctions bankFunctions = new BankFunctions(100);
 
 
     public void run() {
         Scanner input = new Scanner(System.in);
-        int choice;
+        String choice;
 
         System.out.println("Welcome to Your Personal Bank App!\n");
         while (true) {
@@ -20,7 +20,7 @@ public class BankUI {
 
             try {
                 choice = handleTransaction(input);
-                if(choice == 5){ break; }
+                if(choice.equals("exit")){ break; }
                 handleChoice(choice,input);
             }
             catch (InvalidTransactionException | InputMismatchException | NumberFormatException e){
@@ -40,29 +40,28 @@ public class BankUI {
     }
 
 
-    private int handleTransaction(Scanner input) throws UnknownTransactionTypeException{
+    private String handleTransaction(Scanner input) throws UnknownTransactionTypeException{
         System.out.print("Choose Transaction: ");
         String choice = "";
-        int transaction;
+
         try {
-            choice = input.nextLine();
-            transaction = Integer.parseInt(choice);
+            choice = input.nextLine().trim();
         }catch (NumberFormatException e){
             throw new UnknownTransactionTypeException(choice);
         }
-        return transaction;
+        return choice.toLowerCase();
     }
 
 
-    private void handleChoice(int choice, Scanner input){
+    private void handleChoice(String choice, Scanner input){
         switch (choice) {
-            case 1 -> bankFunctions.deposit(handleAmountInput(input));
-            case 2 -> bankFunctions.withdraw(handleAmountInput(input));
-            case 3 -> bankFunctions.transferMoney(handleAmountInput(input));
-            case 4 -> bankFunctions.checkBalance();
+            case "deposit" -> bankFunctions.deposit(handleAmountInput(input));
+            case "withdraw" -> bankFunctions.withdraw(handleAmountInput(input));
+            case "transfer" -> bankFunctions.transferMoney(handleAmountInput(input));
+            case "balance" -> bankFunctions.checkBalance();
             default -> {
                 System.out.println("Choose From Menu!\n");
-                throw new UnknownTransactionTypeException(choice + "");
+                throw new UnknownTransactionTypeException(choice);
             }
         }
     }

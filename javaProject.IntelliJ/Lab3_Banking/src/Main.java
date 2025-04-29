@@ -1,4 +1,4 @@
-import BankInteraction.BankFunctions;
+
 import BankInteraction.BankUI;
 
 public class Main {
@@ -6,6 +6,8 @@ public class Main {
         BankUI bankUI = new BankUI();
 
         bankUI.run();
+
+        
 
     }
 }
