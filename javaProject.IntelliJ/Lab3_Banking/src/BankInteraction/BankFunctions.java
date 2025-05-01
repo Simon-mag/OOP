@@ -3,7 +3,7 @@ import myExceptions.*;
 
 public class BankFunctions {
 
-    private double balance;
+    private double balance = 1000.0;
 
     public BankFunctions(){}
     public BankFunctions(double balance){this.balance = balance;}
@@ -51,15 +51,14 @@ public class BankFunctions {
     public double getBalance(){return balance;}
 
 
-
-
-
-
-
-
-
-
-
+    public void processTransaction(String transactionType, int amount){
+        switch (transactionType) {
+            case "Deposit": deposit(amount); break;
+            case "Withdraw": withdraw(amount); break;
+            case "Transfer": transferMoney(amount); break;
+            default: throw new InvalidTransactionException(transactionType);
+        }
+    }
 
     public void printMenu(){
         System.out.println("---- Your Bank Menu ----\n");

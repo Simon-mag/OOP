@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class BankGUI extends JFrame {
     private final JTextArea outputArea;
@@ -15,9 +14,6 @@ public class BankGUI extends JFrame {
     private final JRadioButton showHistoryButton;
 
     private final BankFunctions manager;
-
-    private ArrayList<String> history;
-
 
     public BankGUI(){
         super("Simple Banking System");
@@ -38,6 +34,7 @@ public class BankGUI extends JFrame {
 
         outputArea = new JTextArea();
         outputArea.setEditable(false);
+        outputArea.setText("Current Balance: " + manager.getBalance()+"\n");
         JScrollPane scrollPane = new JScrollPane(outputArea);
         topPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -54,7 +51,7 @@ public class BankGUI extends JFrame {
 
         hideHistoryButton.addActionListener(new AbstractAction(){
             public void actionPerformed(ActionEvent e){
-                outputArea.setText("Current balance : " + String.valueOf(manager.getBalance()));
+                outputArea.setText("Current balance : " + manager.getBalance()+"\n");
             }
         });
 
@@ -77,47 +74,50 @@ public class BankGUI extends JFrame {
     }
 
     public class ButtonHandler implements ActionListener {
-//
+
+        private String transactionType  ="";
+
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent er) {
+            if (er.getSource() == depositButton) {
+                transactionType = "Deposit";
+
+            } else if (er.getSource() == withdrawButton) {
+                transactionType = "Withdraw";
+
+            } else if (er.getSource() == transferButton) {
+                transactionType = "Transfer";
+            }
 
 
+            String input = JOptionPane.showInputDialog(
+                    BankGUI.this,
+                    "Enter amount to " + transactionType + ":",
+                    "Input Amount",
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+
+            if (input == null) return;
+
+            try {
+                int amount = Integer.parseInt(input.trim());
+                manager.processTransaction(transactionType, amount);
+                if (hideHistoryButton.isSelected()) {
+                    outputArea.setText("Current Balance: " + manager.getBalance() + "\n");
+                } else {
+                    outputArea.append(transactionType.substring(0, 1).toUpperCase() +
+                            transactionType.substring(1) + "ed " + amount + "\n");
+                    outputArea.append("Updated Balance: " + manager.getBalance() + "\n");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(BankGUI.this, "Please enter a valid integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        BankGUI.this, e.getMessage(), "Transaction Error", JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
-//
-//        String input = JOptionPane.showInputDialog(
-//                BankGUI.this,
-//                "Enter amount to " + transactionType + ":",
-//                "Input Amount",
-//                JOptionPane.PLAIN_MESSAGE
-//        );
-//
-//
-//        if(input == null) return;
-//
-//        try {
-//            int amount = Integer.parseInt(input.trim());
-//            manager.processTransaction(transactionType, amount);
-//            if (hideHistoryButton.isSelected()) {
-//                outputArea.setText("Current Balance: " + manager.getBalance() + "\n");
-//            } else {
-//                outputArea.append(transactionType.substring(0, 1).toUpperCase() +
-//                                  transactionType.substring(1) + "ed " + amount + "\n");
-//                                  outputArea.append("Updated Balance: " + manager.getBalance() + "\n");
-//            }
-//        }catch(NumberFormatException e){
-//            JOptionPane.showMessageDialog(BankGUI.this, "Please enter a valid integer.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//        }catch(Exception e){
-//            JOptionPane.showMessageDialog(
-//                    BankGUI.this, e.getMessage(), "Transaction Error", JOptionPane.ERROR_MESSAGE
-//            );
-//        }
-    }
-
-
-
-    public void run(){
-        history = new ArrayList<>();
-
     }
 
 }
