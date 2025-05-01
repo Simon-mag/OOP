@@ -48,6 +48,19 @@ public class BankFunctions {
 
     public void checkBalance(){System.out.printf("You have %.2f kr left in your account%n", balance);}
 
+    public double getBalance(){return balance;}
+
+
+
+
+
+
+
+
+
+
+
+
     public void printMenu(){
         System.out.println("---- Your Bank Menu ----\n");
         System.out.println("------------------------");
