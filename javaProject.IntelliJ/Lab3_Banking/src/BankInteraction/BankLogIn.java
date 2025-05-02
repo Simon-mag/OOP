@@ -70,7 +70,7 @@ public class BankLogIn extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == ok) {
                 String username = "user123";
-                String password = "1223334444";
+                String password = "1234";
                 if (usernameText.getText().equals(username) &&
                         String.valueOf(passwordText.getPassword()).equals(password)){
                     BankLogIn.this.dispose();

@@ -52,14 +52,14 @@ public class BankUI {
     }
 
 
-    private void handleChoice(String choice, Scanner input){
+    private void handleChoice(String choice, Scanner input) throws UnknownTransactionTypeException, InvalidTransactionException{
         switch (choice) {
             case "deposit" -> bankFunctions.deposit(handleAmountInput(input));
             case "withdraw" -> bankFunctions.withdraw(handleAmountInput(input));
             case "transfer" -> bankFunctions.transferMoney(handleAmountInput(input));
             case "balance" -> bankFunctions.checkBalance();
             default -> {
-                System.out.println("Choose From Menu!\n");
+                System.out.println();
                 throw new UnknownTransactionTypeException(choice);
             }
         }
@@ -74,7 +74,6 @@ public class BankUI {
             amountValue = Integer.parseInt(amount);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Invalid input! (must be a number)\n");
-
         }
         return (amountValue);
     }

@@ -1,20 +1,12 @@
 package myExceptions;
 
-public class InvalidTransactionException extends RuntimeException{
-    private final String invalidInput;
+public class InvalidTransactionException extends Exception{
 
     public InvalidTransactionException(){
-        super();
-        this.invalidInput = "";
+        super("Transaction is invalid");
     }
     public InvalidTransactionException(String text){
         super("Transaction error: " + text);
-        this.invalidInput = text;
-    }
-
-    @Override
-    public String getMessage(){
-        return "Transaction error: " + invalidInput;
     }
 
 }

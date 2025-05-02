@@ -1,5 +1,4 @@
 
-import BankInteraction.BankGUI;
 import BankInteraction.BankLogIn;
 import BankInteraction.BankUI;
 
