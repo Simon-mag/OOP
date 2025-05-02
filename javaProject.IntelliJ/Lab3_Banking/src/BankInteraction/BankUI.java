@@ -9,7 +9,6 @@ public class BankUI {
     ArrayList<Throwable> errorHistory = new ArrayList<>();
     BankFunctions bankFunctions = new BankFunctions(100);
 
-
     public void run() {
         Scanner input = new Scanner(System.in);
         String choice;
@@ -82,10 +81,9 @@ public class BankUI {
     
     private void printErrors(){
         System.out.println("--- Tracing of Caught Errors during session ---");
-        for (Throwable error : errorHistory){
+        for (Throwable error : errorHistory) {
             System.out.println("\n<><><><><><><><><><><><><><><><><><><><><><><><><>");
-            System.out.printf("%s %s%n",error.getClass().getSimpleName(),error.getMessage());
-            error.printStackTrace();
+            error.printStackTrace(System.out);
         }
     }
 
