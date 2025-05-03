@@ -71,8 +71,10 @@ public class BankLogIn extends JFrame{
             if (e.getSource() == ok) {
                 String username = "user123";
                 String password = "1234";
+                //CALL NEW CLASSES AND CHECK IF ITS VALID INFO//
                 if (usernameText.getText().equals(username) &&
                         String.valueOf(passwordText.getPassword()).equals(password)){
+                    //OPEN THE CORRECT USER WITH THEIR INFO//
                     BankLogIn.this.dispose();
                     BankGUI bank = new BankGUI();
                 } else{
