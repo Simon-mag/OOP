@@ -1,18 +1,21 @@
 package UserInformation;
 
+import BankInteraction.BankGUI;
+
 import java.io.*;
-import java.util.Map;
-import java.util.Scanner;
+import java.security.MessageDigest;
+import java.util.*;
 
 
 //so this class contains all the users at the same time instead of 1 at a time//
 public class UserDataBase {
 
-    private Map<String, User> users;
+    private final Map<String, User> users = new HashMap<>();
+
 
     public UserDataBase(){
 
-        String line = "";
+        String line;
         try(Scanner reader = new Scanner(new FileReader("users.txt"))) {
 
             while(reader.hasNextLine()){
@@ -35,8 +38,13 @@ public class UserDataBase {
 
                 if(validateUserInfo(username, password, firstName, lastName, address, phone, balance)){
                     double userBalance = Double.parseDouble(balance);
-                    User user = new User(username, password, firstName, lastName, address, phone, userBalance);
+                    password = hashPassword(password);
+
+                    User user = new User(username, password, firstName, lastName, address, phone);
+
                     users.put(username, user);
+                    updateBalance(username, userBalance);
+
                 }else
                     throw new RuntimeException(username);
             }
@@ -50,7 +58,7 @@ public class UserDataBase {
             System.out.println("Failed to read File");
         }
 
-
+        System.out.println("Users created successfully!");
     }
 
 
@@ -73,25 +81,98 @@ public class UserDataBase {
     }
 
     public boolean authenticate(String username, String password){
+        File balances = new File("users.ser");
+        List<String> userInfo = new ArrayList<>();
 
+        try(BufferedReader reader = new BufferedReader(new FileReader(balances))) {
+            String line;
+            while ( (line = reader.readLine()) != null){
+                String[] parts = line.split(",");
+
+                if(parts[0].equals(username) && hashPassword(parts[1]).equals(password)) {
+                    return true;
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading from balances.txt file!");
+        }
         return false;
     }
 
-    public void hashPassword(String password){
-
+    private String hashPassword(String password) throws RuntimeException{
+        try{
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hash);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     public double getBalance(String username){
-        return users.get(username).getBalance();
+        File balances = new File("balances.txt");
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(balances))){
+            String line;
+            while ( (line = reader.readLine()) != null){
+                String[] parts = line.trim().split(" +");
+                if(parts[0].equals(username)){
+                    return Double.parseDouble(parts[1]);
+                }
+            }
+            System.out.println("User: " + username + " not found!");
+        } catch (FileNotFoundException e) {
+            System.out.println("could not open file: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } catch (NumberFormatException e){
+            System.out.println("Invalid balance format");
+        }
+        return 0;
     }
 
-    public void updateBalance(String username, double NewBalance){
-        users.get(username).setBalance(NewBalance);
+    public void updateBalance(String username, double newBalance){
+        File balances = new File("balances.txt");
+        List<String> userInfo = new ArrayList<>();
+        boolean userFound = false;
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(balances))) {
+            String line;
+            while ( (line = reader.readLine()) != null){
+                String[] parts = line.split(" ");
+
+                if(parts[0].equals(username)){
+                    userInfo.add(username + " " + newBalance);
+                    userFound = true;
+                }else
+                    userInfo.add(line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading from balances.txt file!");
+        }
+
+        if(!userFound)
+            userInfo.add(username + " " + newBalance);
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(balances))){
+            for(String updatedUserInfo : userInfo){
+                writer.write(updatedUserInfo);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to balances.txt file!");
+        }
+
     }
 
-    public void logTransaction(String username, String type, double amount){
-
+    public void logTransaction(String username, String transactionType, double amount) throws IOException {
+        try(Formatter formatter = new Formatter(new FileWriter("history_"+username+".log",true))){
+        formatter.format("[%s] %s %.2f%n",new Date(), transactionType.toUpperCase(),amount);
+        }
     }
 
 
+    public Map<String,User> getUsers(){return users;}
 }

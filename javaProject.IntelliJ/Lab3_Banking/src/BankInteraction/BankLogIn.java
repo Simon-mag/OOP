@@ -1,5 +1,7 @@
 package BankInteraction;
 
+import UserInformation.UserDataBase;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +13,7 @@ public class BankLogIn extends JFrame{
     private final JTextField usernameText;
     private final JPasswordField passwordText;
     private int loginAttempts = 0;
-
+    private UserDataBase userDataBase = new UserDataBase();
 
     public BankLogIn(){
         //Create basic login Frame//
@@ -72,12 +74,11 @@ public class BankLogIn extends JFrame{
                 String username = "user123";
                 String password = "1234";
                 //CALL NEW CLASSES AND CHECK IF ITS VALID INFO//
-                if (usernameText.getText().equals(username) &&
-                        String.valueOf(passwordText.getPassword()).equals(password)){
-                    //OPEN THE CORRECT USER WITH THEIR INFO//
+                if( userDataBase.authenticate(usernameText.getText(),String.valueOf(passwordText.getPassword())) ){
+                    //OPEN THE CORRECT USER WITH THEIR INFO, PASS IT IN BankGUI?//
                     BankLogIn.this.dispose();
                     BankGUI bank = new BankGUI();
-                } else{
+                }else{
                     ++loginAttempts;
                     if(loginAttempts < 3) {
                         JOptionPane.showMessageDialog(

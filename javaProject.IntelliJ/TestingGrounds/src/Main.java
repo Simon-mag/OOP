@@ -7,14 +7,37 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner x = new Scanner(System.in);
-        testaPrintf print = new testaPrintf();
+        if(validateUserInfo(
+                "Simon_56789",
+                "goRman405111!",
+                "Simon",
+                "MAgnusson",
+                "Vårlöksstigen 22",
+                "+46709454312",
+                "2000"))
+            System.out.println("These are valid entries");
+        else
+            System.out.println("Something was invalid");
 
-        System.out.println("Hello and welcome too my crejsy java functions!");
 
-         print.printPersonInfo(Animal.iAmCat());
-         print.printPersonInfo(Animal.iAmDog());
+    }
 
-
+    private static boolean validateUserInfo(
+            String username,
+            String password,
+            String firstName,
+            String lastName,
+            String address,
+            String phone,
+            String balance)
+    {
+        return username.matches("^[A-Za-z][A-Za-z0-9_]{4,11}$") &&
+                password.matches("^(?=.+[A-ZÅÄÖ])(?=.+\\d)(?=.+[!@#]).{8,}$") &&
+                firstName.matches("^[A-ZÅÄÖa-zåäö]{1,20}$") &&
+                lastName.matches("^[A-ZÅÄÖa-zåäö]{1,20}$") &&
+                address.matches("^[A-ZÅÄÖa-zåäö0-9 .,-]{5,50}$") &&
+                phone.matches("^\\+46\\d{7,9}$") &&
+                balance.matches("^\\d+$");
     }
 
 
