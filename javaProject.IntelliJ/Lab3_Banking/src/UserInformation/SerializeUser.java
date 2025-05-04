@@ -20,5 +20,8 @@ public class SerializeUser implements Serializable {
             System.out.println("Serialization failed: " + e.getMessage());
         }
     }
+    public void deSerialize(){
+
+    }
 
 }

@@ -1,12 +1,17 @@
 package BankInteraction;
+import UserInformation.User;
+import UserInformation.UserDataBase;
 import myExceptions.*;
 
 public class BankFunctions {
 
-    private double balance = 1000.0;
+    private final UserDataBase userDataBase = new UserDataBase();
+    private final String username;
 
-    public BankFunctions(){}
-    public BankFunctions(double balance){this.balance = balance;}
+    //public BankFunctions(){}
+    public BankFunctions(User user){
+        this.username = user.getUsername();
+    }
 
 
     public void deposit(double amount) throws InvalidTransactionException {
@@ -14,19 +19,20 @@ public class BankFunctions {
 
         if(amount < 0)
             throw new InvalidTransactionException("Amount less or equal to zero");
-        balance += amount;
+        userDataBase.updateBalance(username, userDataBase.getBalance(username) + amount);
     }
 
     public void withdraw(double amount) throws InvalidTransactionException{
        //assert ( amount > 0 && (balance-amount > 0) ) : "assert not enough balance!";
 
+        double balance = userDataBase.getBalance(username);
         if(amount <= 0) {
             throw new InvalidTransactionException("Must be a number higher than zero!");
-        } else if(amount > balance) {
+        } else if(amount >balance) {
             throw new InvalidTransactionException("Not enough balance!");
         }else {
             balance -= amount;
-            System.out.printf("Withdrew: %.2f kr %n", amount);
+            userDataBase.updateBalance(username,balance);
         }
 
     }
@@ -34,23 +40,24 @@ public class BankFunctions {
     public void transferMoney(double amount) throws InvalidTransactionException {
         //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
 
+        double balance = userDataBase.getBalance(username);
         if(amount <= 0) {
             throw new InvalidTransactionException("Must be a positive number above zero");
-        } else if(amount > balance) {
+        } else if(amount > userDataBase.getBalance(username)) {
             throw new InvalidTransactionException("Can't transfer, insufficient funds");
         } else{
             balance -= amount;
-            System.out.printf("Transferred: %.2f kr %n", amount);
+            userDataBase.updateBalance(username,balance);
         }
 
     }
 
-    public void checkBalance(){System.out.printf("You have %.2f kr left in your account%n", balance);}
+    public double getBalance(){
+        return userDataBase.getBalance(username);
+    }
 
-    public double getBalance(){return balance;}
 
-
-    public void processTransaction(String transactionType, int amount) throws InvalidTransactionException {
+    public void processTransaction(String transactionType, Double amount) throws InvalidTransactionException {
         switch (transactionType) {
             case "Deposit": deposit(amount); break;
             case "Withdraw": withdraw(amount); break;

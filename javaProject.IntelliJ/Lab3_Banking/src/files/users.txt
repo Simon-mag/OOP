@@ -1,3 +1,0 @@
-username,password,firstName,lastName,address,phoneNumber,balance
-nomis570,simon123!,Simon,Magnusson,Sverigegatan 3,0704239534, 1500
-

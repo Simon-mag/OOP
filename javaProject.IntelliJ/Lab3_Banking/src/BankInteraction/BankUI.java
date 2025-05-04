@@ -1,5 +1,6 @@
 package BankInteraction;
 
+import UserInformation.User;
 import myExceptions.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 
 public class BankUI {
     ArrayList<Throwable> errorHistory = new ArrayList<>();
-    BankFunctions bankFunctions = new BankFunctions(100);
+    BankFunctions bankFunctions = new BankFunctions(new User());
 
     public void run() {
         Scanner input = new Scanner(System.in);
@@ -57,7 +58,7 @@ public class BankUI {
             case "deposit" -> bankFunctions.deposit(handleAmountInput(input));
             case "withdraw" -> bankFunctions.withdraw(handleAmountInput(input));
             case "transfer" -> bankFunctions.transferMoney(handleAmountInput(input));
-            case "balance" -> bankFunctions.checkBalance();
+            case "balance" -> bankFunctions.getBalance();
             default -> {
                 System.out.println();
                 throw new UnknownTransactionTypeException(choice);

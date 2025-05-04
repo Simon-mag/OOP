@@ -2,6 +2,7 @@ package UserInformation;
 
 import BankInteraction.BankGUI;
 
+import javax.swing.*;
 import java.io.*;
 import java.security.MessageDigest;
 import java.util.*;
@@ -12,11 +13,11 @@ public class UserDataBase {
 
     private final Map<String, User> users = new HashMap<>();
 
-
-    public UserDataBase(){
+    public UserDataBase(){}
+    public UserDataBase(File inputFile){
 
         String line;
-        try(Scanner reader = new Scanner(new FileReader("users.txt"))) {
+        try(Scanner reader = new Scanner(new FileReader(inputFile))) {
 
             while(reader.hasNextLine()){
 
@@ -58,7 +59,6 @@ public class UserDataBase {
             System.out.println("Failed to read File");
         }
 
-        System.out.println("Users created successfully!");
     }
 
 
@@ -72,7 +72,7 @@ public class UserDataBase {
             String balance)
     {
         return username.matches("^[A-Za-z][A-Za-z0-9_]{4,11}$") &&
-               password.matches("^(?=.+[A-ZÅÄÖ])(?=.+\\d)(?=.+[!@#]).{8,}$") &&
+               password.matches("^(?=.*[A-ZÅÄÖ])(?=.*\\d)(?=.*[!@#]).{8,}$") &&
                firstName.matches("^[A-ZÅÄÖa-zåäö]{1,20}$") &&
                lastName.matches("^[A-ZÅÄÖa-zåäö]{1,20}$") &&
                address.matches("^[A-ZÅÄÖa-zåäö0-9 .,-]{5,50}$") &&
@@ -163,6 +163,7 @@ public class UserDataBase {
             }
         } catch (IOException e) {
             System.out.println("Error writing to balances.txt file!");
+            throw new RuntimeException(e);
         }
 
     }
@@ -170,6 +171,16 @@ public class UserDataBase {
     public void logTransaction(String username, String transactionType, double amount) throws IOException {
         try(Formatter formatter = new Formatter(new FileWriter("history_"+username+".log",true))){
         formatter.format("[%s] %s %.2f%n",new Date(), transactionType.toUpperCase(),amount);
+        }
+    }
+
+    public User loadUser(String username) throws RuntimeException{
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("users.ser"))){
+            Map<String,User> users = (Map<String, User>) in.readObject();
+            return users.get(username);
+        }catch (IOException | ClassNotFoundException e){
+            System.out.println("failed to load user data: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

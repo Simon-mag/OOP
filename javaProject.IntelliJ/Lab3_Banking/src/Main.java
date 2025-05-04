@@ -9,22 +9,28 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        BankUI bankUI = new BankUI();
-        SerializeUser serializeUser = new SerializeUser();
-        UserDataBase userDataBase;
-
         File inputFile = new File("users.txt");
+
         if(inputFile.exists()) {
-            userDataBase = new UserDataBase();
-            serializeUser.serialize(userDataBase.getUsers());
+            try {
+                UserDataBase userDataBase = new UserDataBase(inputFile);
+                SerializeUser serializeUser = new SerializeUser();
 
+                serializeUser.serialize(userDataBase.getUsers());
+
+                if (inputFile.delete()) {
+                    System.out.println("InputFile deleted!");
+                } else {
+                    System.out.println("InputFile could not be deleted!");
+                }
+            } catch (Exception e) {
+                System.out.println("Failed to initialize or serialize users");
+                e.printStackTrace();
+                return;
+            }
         }
-        if(inputFile.delete())
-            System.out.println("InputFile deleted!");
-        else
-            System.out.println("InputFile could not be deleted!");
 
 
-        //BankLogIn bankLogIn = new BankLogIn();
+        new BankLogIn();
     }
 }

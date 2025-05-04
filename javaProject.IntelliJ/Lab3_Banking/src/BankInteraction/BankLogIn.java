@@ -1,10 +1,15 @@
 package BankInteraction;
 
+import UserInformation.User;
 import UserInformation.UserDataBase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Map;
 
 public class BankLogIn extends JFrame{
 
@@ -13,7 +18,7 @@ public class BankLogIn extends JFrame{
     private final JTextField usernameText;
     private final JPasswordField passwordText;
     private int loginAttempts = 0;
-    private UserDataBase userDataBase = new UserDataBase();
+    private final UserDataBase userDataBase = new UserDataBase();
 
     public BankLogIn(){
         //Create basic login Frame//
@@ -71,13 +76,11 @@ public class BankLogIn extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == ok) {
-                String username = "user123";
-                String password = "1234";
-                //CALL NEW CLASSES AND CHECK IF ITS VALID INFO//
-                if( userDataBase.authenticate(usernameText.getText(),String.valueOf(passwordText.getPassword())) ){
-                    //OPEN THE CORRECT USER WITH THEIR INFO, PASS IT IN BankGUI?//
+                //CHECK IF ITS VALID INFO AND CALL NEW CLASSES //
+                String username = usernameText.getText();
+                if( userDataBase.authenticate(username,String.valueOf(passwordText.getPassword())) ){
                     BankLogIn.this.dispose();
-                    BankGUI bank = new BankGUI();
+                    new BankGUI(userDataBase.loadUser(username));
                 }else{
                     ++loginAttempts;
                     if(loginAttempts < 3) {
@@ -100,4 +103,5 @@ public class BankLogIn extends JFrame{
             }
         }
     }
+
 }

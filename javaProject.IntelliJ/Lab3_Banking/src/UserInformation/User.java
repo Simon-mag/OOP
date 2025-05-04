@@ -30,7 +30,7 @@ public class User implements Serializable {
     public String getFirstName() {return firstName;}
     public String getPassword() {return password;}
     public String getLastName() {return lastName;}
-    public String getUserName() {return userName;}
+    public String getUsername() {return userName;}
     public String getAddress() {return address;}
 
 

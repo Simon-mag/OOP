@@ -1,9 +1,16 @@
 package BankInteraction;
 
+import UserInformation.User;
+import UserInformation.UserDataBase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Map;
 
 public class BankGUI extends JFrame {
     private final JTextArea outputArea;
@@ -13,12 +20,18 @@ public class BankGUI extends JFrame {
     private final JRadioButton hideHistoryButton;
     private final JRadioButton showHistoryButton;
 
+
+
+    private final User currentUser;
     private final BankFunctions manager;
 
-    public BankGUI(){
+
+    public BankGUI(User currentUser){
+
         // Create basic Frame //
         super("Simple Banking System");
-        manager = new BankFunctions();
+        this.currentUser = currentUser;
+        manager = new BankFunctions(currentUser);
         setSize(600,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -99,7 +112,8 @@ public class BankGUI extends JFrame {
             if (input == null) return;
 
             try {
-                int amount = Integer.parseInt(input.trim());
+                //Here I have amount in Double and transactionType as String//
+                double amount = Double.parseDouble(input.trim());
                 manager.processTransaction(transactionType, amount);
 
                 if (hideHistoryButton.isSelected()) {
