@@ -118,7 +118,7 @@ public class BankGUI extends JFrame {
             if (input == null) return;
 
             try {
-                //Here I have amount in Double and transactionType as String//
+                //Here the amount is double and transactionType is String//
                 double amount = Double.parseDouble(input.trim());
                 manager.processTransaction(transactionType, amount);
 

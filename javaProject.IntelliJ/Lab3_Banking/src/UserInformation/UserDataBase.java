@@ -4,8 +4,6 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.util.*;
 
-
-//so this class contains all the users at the same time instead of 1 at a time//
 public class UserDataBase {
 
     private final Map<String, User> users = new HashMap<>();
@@ -44,17 +42,14 @@ public class UserDataBase {
                     throw new RuntimeException(username);
             }
 
-
         } catch (NumberFormatException e){
             System.out.println("Balance is in wrong format");
         } catch (RuntimeException e){
-            System.out.print("User did not have a valid format in \"users.txt\": " + e.getLocalizedMessage());
+            System.out.print("User did not have valid formated information in \"users.txt\": " + e.getMessage());
         } catch (IOException e){
             System.out.println("Failed to read File");
         }
-
     }
-
 
     private boolean validateUserInfo(
             String username,
@@ -77,9 +72,9 @@ public class UserDataBase {
     public boolean authenticate(String username, String password){
         try {
             User user = loadUser(username);
-            return user != null && user.getPassword().equals(hashPassword(password));
+            return (user != null) && user.getPassword().equals(hashPassword(password));
         } catch (RuntimeException e) {
-            System.out.println("Authentication failed" + e.getMessage());
+            System.out.println("Could not load user: " + e.getMessage());
             return false;
         }
     }
@@ -169,6 +164,25 @@ public class UserDataBase {
         }
     }
 
+    public static void checkInputFile(){
+        File inputFile = new File("users.txt");
+
+        if(inputFile.exists()) {
+            try {
+                UserDataBase userDataBase = new UserDataBase(inputFile);
+                new SerializeUser().serialize(userDataBase.getUsers());
+
+                if (inputFile.delete()) {
+                    System.out.println("InputFile deleted!");
+                } else {
+                    System.out.println("InputFile could not be deleted!");
+                }
+            } catch (Exception e) {
+                System.out.println("Failed to initialize or serialize users");
+                e.printStackTrace();
+            }
+        }
+    }
 
     public Map<String,User> getUsers(){return users;}
 }

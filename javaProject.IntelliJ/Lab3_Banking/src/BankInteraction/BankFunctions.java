@@ -9,14 +9,12 @@ public class BankFunctions {
     private final UserDataBase userDataBase = new UserDataBase();
     private final String username;
 
-    //public BankFunctions(){}
     public BankFunctions(User user){
         this.username = user.getUsername();
     }
 
 
     public void deposit(double amount) throws InvalidTransactionException {
-        //assert (amount > 0) : "amount less or equal to zero";
 
         if(amount < 0)
             throw new InvalidTransactionException("Amount less or equal to zero");
@@ -25,7 +23,6 @@ public class BankFunctions {
     }
 
     public void withdraw(double amount) throws InvalidTransactionException{
-       //assert ( amount > 0 && (balance-amount > 0) ) : "assert not enough balance!";
 
         double balance = userDataBase.getBalance(username);
         if(amount <= 0) {
@@ -39,7 +36,6 @@ public class BankFunctions {
     }
 
     public void transferMoney(double amount) throws InvalidTransactionException {
-        //assert ( amount > 0 && (balance-amount > 0) ) : "not enough balance!";
 
         double balance = userDataBase.getBalance(username);
         if(amount <= 0) {
@@ -57,7 +53,6 @@ public class BankFunctions {
         return userDataBase.getBalance(username);
     }
 
-
     public void processTransaction(String transactionType, Double amount) throws InvalidTransactionException, IOException {
         switch (transactionType) {
             case "Deposit": deposit(amount); break;
@@ -67,6 +62,9 @@ public class BankFunctions {
         }
         userDataBase.logTransaction(username,transactionType,amount);
     }
+
+
+
 
     public void printMenu(){
         System.out.println("---- Your Bank Menu ----\n");

@@ -3,9 +3,7 @@ package UserInformation;
 import java.io.*;
 import java.util.Map;
 
-//create methods that serialize in the users info into a .ser file
 public class SerializeUser implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
