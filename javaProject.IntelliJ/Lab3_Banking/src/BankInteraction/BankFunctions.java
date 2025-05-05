@@ -2,6 +2,7 @@ package BankInteraction;
 import UserInformation.User;
 import UserInformation.UserDataBase;
 import myExceptions.*;
+import java.io.IOException;
 
 public class BankFunctions {
 
@@ -20,6 +21,7 @@ public class BankFunctions {
         if(amount < 0)
             throw new InvalidTransactionException("Amount less or equal to zero");
         userDataBase.updateBalance(username, userDataBase.getBalance(username) + amount);
+
     }
 
     public void withdraw(double amount) throws InvalidTransactionException{
@@ -31,8 +33,7 @@ public class BankFunctions {
         } else if(amount >balance) {
             throw new InvalidTransactionException("Not enough balance!");
         }else {
-            balance -= amount;
-            userDataBase.updateBalance(username,balance);
+            userDataBase.updateBalance(username,balance - amount);
         }
 
     }
@@ -57,13 +58,14 @@ public class BankFunctions {
     }
 
 
-    public void processTransaction(String transactionType, Double amount) throws InvalidTransactionException {
+    public void processTransaction(String transactionType, Double amount) throws InvalidTransactionException, IOException {
         switch (transactionType) {
             case "Deposit": deposit(amount); break;
             case "Withdraw": withdraw(amount); break;
             case "Transfer": transferMoney(amount); break;
             default: throw new InvalidTransactionException(transactionType);
         }
+        userDataBase.logTransaction(username,transactionType,amount);
     }
 
     public void printMenu(){

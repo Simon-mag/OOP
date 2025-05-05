@@ -1,1 +1,2 @@
-nomis570 2000.0
+nomis570 21800.0
+MerleLion 300000.0

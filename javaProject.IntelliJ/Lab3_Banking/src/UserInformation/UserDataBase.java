@@ -1,8 +1,5 @@
 package UserInformation;
 
-import BankInteraction.BankGUI;
-
-import javax.swing.*;
 import java.io.*;
 import java.security.MessageDigest;
 import java.util.*;
@@ -38,14 +35,11 @@ public class UserDataBase {
                 String balance   = userInfo[6].trim();
 
                 if(validateUserInfo(username, password, firstName, lastName, address, phone, balance)){
-                    double userBalance = Double.parseDouble(balance);
                     password = hashPassword(password);
+                    updateBalance(username, Double.parseDouble(balance));
 
                     User user = new User(username, password, firstName, lastName, address, phone);
-
                     users.put(username, user);
-                    updateBalance(username, userBalance);
-
                 }else
                     throw new RuntimeException(username);
             }
@@ -81,23 +75,13 @@ public class UserDataBase {
     }
 
     public boolean authenticate(String username, String password){
-        File balances = new File("users.ser");
-        List<String> userInfo = new ArrayList<>();
-
-        try(BufferedReader reader = new BufferedReader(new FileReader(balances))) {
-            String line;
-            while ( (line = reader.readLine()) != null){
-                String[] parts = line.split(",");
-
-                if(parts[0].equals(username) && hashPassword(parts[1]).equals(password)) {
-                    return true;
-                }
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error reading from balances.txt file!");
+        try {
+            User user = loadUser(username);
+            return user != null && user.getPassword().equals(hashPassword(password));
+        } catch (RuntimeException e) {
+            System.out.println("Authentication failed" + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     private String hashPassword(String password) throws RuntimeException{
@@ -176,6 +160,7 @@ public class UserDataBase {
 
     public User loadUser(String username) throws RuntimeException{
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("users.ser"))){
+            @SuppressWarnings("unchecked")
             Map<String,User> users = (Map<String, User>) in.readObject();
             return users.get(username);
         }catch (IOException | ClassNotFoundException e){

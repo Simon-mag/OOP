@@ -1,28 +1,21 @@
 package BankInteraction;
 
 import UserInformation.User;
-import UserInformation.UserDataBase;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Map;
+
 
 public class BankGUI extends JFrame {
     private final JTextArea outputArea;
     private final JButton depositButton;
     private final JButton withdrawButton;
     private final JButton transferButton;
+    private final JButton logoutButton;
     private final JRadioButton hideHistoryButton;
     private final JRadioButton showHistoryButton;
 
-
-
-    private final User currentUser;
     private final BankFunctions manager;
 
 
@@ -30,7 +23,6 @@ public class BankGUI extends JFrame {
 
         // Create basic Frame //
         super("Simple Banking System");
-        this.currentUser = currentUser;
         manager = new BankFunctions(currentUser);
         setSize(600,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,13 +65,15 @@ public class BankGUI extends JFrame {
         });
 
         // Button Panel with 3 buttons //
-        JPanel buttonPanel = new JPanel(new GridLayout(1,3));
+        JPanel buttonPanel = new JPanel(new GridLayout(1,4));
         depositButton = new JButton("Deposit");
         withdrawButton = new JButton("Withdraw");
         transferButton = new JButton("Transfer");
+        logoutButton = new JButton("Log Out");
         buttonPanel.add(depositButton);
         buttonPanel.add(withdrawButton);
         buttonPanel.add(transferButton);
+        buttonPanel.add(logoutButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Adding actions to buttons //
@@ -87,6 +81,7 @@ public class BankGUI extends JFrame {
         depositButton.addActionListener(handler);
         withdrawButton.addActionListener(handler);
         transferButton.addActionListener(handler);
+        logoutButton.addActionListener(handler);
 
 
         setVisible(true);
@@ -101,6 +96,17 @@ public class BankGUI extends JFrame {
             if (er.getSource() == depositButton) {transactionType = "Deposit";}
             else if (er.getSource() == withdrawButton) {transactionType = "Withdraw";}
             else if (er.getSource() == transferButton) {transactionType = "Transfer";}
+            else if (er.getSource() == logoutButton){
+                JOptionPane.showMessageDialog(
+                        BankGUI.this,
+                        "Logged out",
+                        "Bank Manager",
+                        JOptionPane.PLAIN_MESSAGE
+                );
+                BankGUI.this.dispose();
+                new BankLogIn();
+                return;
+            }
 
             String input = JOptionPane.showInputDialog(
                     BankGUI.this,
