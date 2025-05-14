@@ -13,7 +13,7 @@ public class Registry<T extends Person> {
 
     public void listItems(){
         for(T people : registry){
-            System.out.printf("%s - %d: %s%n", people.getRole(), people.getID(), people.getName());
+            System.out.printf(people.toString());
         }
         System.out.println();
     }

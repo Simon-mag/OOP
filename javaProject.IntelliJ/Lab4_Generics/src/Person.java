@@ -3,7 +3,6 @@ public abstract class Person implements Comparable<Person> {
     private String role;
     protected int id;
 
-
     public Person(){}
     public Person(String name){this.name = name;}
     public Person(String name, String role,int id){
@@ -18,7 +17,7 @@ public abstract class Person implements Comparable<Person> {
 
     @Override
     public String toString(){
-        return role + " - " + id + ": " + name;
+        return role + " - " + id + ": " + name + "\n";
     }
 
     @Override

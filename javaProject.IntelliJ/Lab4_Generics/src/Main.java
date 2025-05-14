@@ -5,21 +5,33 @@ public class Main {
         Registry<Student> students = new Registry<>();
         Registry<Teacher> teachers = new Registry<>();
 
-        students.addItem(new Student("Simon"));
+        Student simon = new Student("Simon");
         Student axel = new Student("Axel");
-        students.addItem(new Student("Elias"));
-        students.addItem(new Student("Carl"));
-        students.addItem(new Student("Felix"));
-        students.addItem(new Student("daniel"));
-        students.addItem(axel);
+        Student elias = new Student("Elias");
+        Student carl = new Student("Carl");
+        Student felix = new Student("Felix");
+        Student felicia = new Student("Felicia");
 
-        teachers.addItem(new Teacher("Ragnar"));
+        students.addItem(simon);
+        students.addItem(axel);
+        students.addItem(elias);
+        students.addItem(carl);
+        students.addItem(felix);
+        students.addItem(felicia);
+
+        Teacher ragnar = new Teacher("Ragnar");
         Teacher johan = new Teacher("Johan");
-        teachers.addItem(new Teacher("Görkem"));
-        teachers.addItem(new Teacher("Arpan"));
-        teachers.addItem(new Teacher("Mikel"));
-        teachers.addItem(new Teacher("Åsa"));
+        Teacher gorkem = new Teacher("Görkem");
+        Teacher arpan = new Teacher("Arpan");
+        Teacher mikel = new Teacher("Mikel");
+        Teacher asa = new Teacher("Åsa");
+
+        teachers.addItem(ragnar);
         teachers.addItem(johan);
+        teachers.addItem(gorkem);
+        teachers.addItem(arpan);
+        teachers.addItem(mikel);
+        teachers.addItem(asa);
 
         System.out.println("Students: \n");
         students.listItems();
@@ -74,4 +86,5 @@ public class Main {
         } catch(InterruptedException e) {
             throw new RuntimeException(e);}
     }
+
 }
