@@ -4,7 +4,5 @@ public class Teacher extends Person{
     public Teacher(){
         super("Noname", "Teacher", nextId++);
     }
-    public Teacher(String name){
-        super(name, "Teacher", nextId++);
-    }
+    public Teacher(String name){ super(name, "Teacher", nextId++); }
 }
