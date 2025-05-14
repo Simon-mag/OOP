@@ -1,0 +1,3 @@
+Appended line using Writer
+Appended using Formatter: 42, 3,14
+>>> INSERTED LINE <<<
