@@ -1,6 +1,9 @@
 import java.util.*;
 
+
+// T extends Person meaning that T can be any kind of Person or object that extends Person //
 public class Registry<T extends Person> {
+    // also aplies to this T in the ArrayList //
     ArrayList<T> registry = new ArrayList<>();
 
     public void addItem(T item){
@@ -22,6 +25,7 @@ public class Registry<T extends Person> {
         Collections.sort(registry);
     }
 
+    //The comparator is what kind of thing we are comparing, in this case the name in lowercase//
     public void sortItems(Comparator<T> comparator){
         registry.sort(comparator);
     }
