@@ -29,8 +29,8 @@ public class ItemManager {
                 String name = parts[1].trim();
                 int value = Integer.parseInt( parts[2].trim());
 
-                if(validateItemInfo(type,name,value)){
-                    if(type.equalsIgnoreCase("armour")){
+                if(validateItemInfo(name,value)){
+                    if(type.equalsIgnoreCase("armor")){
                         Armor armor = new Armor(name, type, value);
                         inventory.put(index,armor);
                         ++index;
@@ -48,16 +48,15 @@ public class ItemManager {
     }
 
 
-    private boolean validateItemInfo(String type,String name, int value){
-        return type.matches("^[Aa][Rr][Mm][Oo][Uu][Rr]$") &&
-                name.matches("^[A-Za-z]{1,15}") &&
+    private boolean validateItemInfo(String name, int value){
+        return name.matches("^[A-Za-z ]{1,20}$") &&
                 (value < 30 && value > 0);
     }
 
 
-    public Item getNewItem(){
-        Random randomGenerator = new Random();
-        return inventory.get((randomGenerator.nextInt() % inventory.size()) + 1);
+    public Item getNewItem(Random random){
+        int value = (random.nextInt() % inventory.size()) + 1;
+        return inventory.get(value);
     }
 
     public Map<Integer, Item> getInventory() {return inventory;}

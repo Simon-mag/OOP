@@ -22,4 +22,32 @@ public abstract class Character {
     public Armor getArmor() {return armor;}
     public Weapon getWeapon() {return weapon;}
     public int getHealthPoints() {return healthPoints;}
+
+    public void setHealthPoints(int newHealth){
+        this.healthPoints = newHealth;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public void printEquipItem(Item item){
+        if(item.getClass().equals(Armor.class)){
+            System.out.printf("%s equips new Armor: %s (with %d armor)",
+                    getName(),
+                    item.getName(),
+                    item.getValue()
+            );
+        } else{
+            System.out.printf("%s equips new weapon: %s (with %d damage)",
+                    getName(),
+                    item.getName(),
+                    item.getValue()
+            );
+        }
+    }
 }
