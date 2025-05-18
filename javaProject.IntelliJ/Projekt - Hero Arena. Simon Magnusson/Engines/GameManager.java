@@ -14,6 +14,7 @@ public class GameManager {
     private final ItemManager armorManager;
     private Hero hero;
     private final Monster monster;
+    private final int startHealth = 40;
 
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
@@ -36,7 +37,7 @@ public class GameManager {
 
             monster = new Monster(
                     "Skeleton",
-                    30,
+                    startHealth,
                     (Armor) armorManager.getNewItem(random),
                     (Weapon) weaponManager.getNewItem(random)
             );
@@ -53,6 +54,7 @@ public class GameManager {
         printMenus(commands.start);
         createHero();
         printMonsterStats();
+        tryGiveHeroNewItems();
 
         int choice;
         do{
@@ -152,7 +154,7 @@ public class GameManager {
         Armor armor =  (Armor) armorManager.getSpecificItem(10);
         Weapon weapon =  (Weapon) weaponManager.getSpecificItem(10);
         hero = new Hero(scanner.nextLine(),
-                30,
+                startHealth,
                 armor,
                 weapon
         );
@@ -169,7 +171,7 @@ public class GameManager {
 
     private void tryGiveHeroNewItems(){
 
-        if(Utils.chance(40)){
+        if(Utils.chance(50)){
             if(Utils.chance(50)){
                 Armor newArmor = (Armor) armorManager.getNewItem(random);
                 hero.getItems().add(newArmor);

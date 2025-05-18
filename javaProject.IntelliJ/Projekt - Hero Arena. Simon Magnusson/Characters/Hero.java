@@ -12,15 +12,16 @@ public class Hero extends Character {
         super(name, healthPoints, armor,weapon);
     }
 
-    public void attack(Monster monster, int damage){
-        String monsterName = monster.getName();
+    @Override
+    public void attack(Character character, int damage){
+        String monsterName = character.getName();
         Weapon weapon = getWeapon();
         System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n",
                 getName(),
                 monsterName,
                 weapon.getName(),
                 damage,
-                monster.getHealthPoints(),
+                character.getHealthPoints(),
                 monsterName
         );
     }
