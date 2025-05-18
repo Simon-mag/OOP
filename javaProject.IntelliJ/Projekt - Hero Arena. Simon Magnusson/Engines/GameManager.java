@@ -85,6 +85,8 @@ public class GameManager {
                         //Equip  items precent chance armor 20%, weapon 30%//
                         monsterEquipItems();
                         monsterAttack();
+                        if(hero.getHealthPoints() <= 0)
+                            break;
                         tryGiveHeroNewItem();
                     }
 
@@ -96,7 +98,7 @@ public class GameManager {
                 scanner.nextLine();
             }
 
-        } while(hero.getHealthPoints() >= 0 && monster.getHealthPoints() >= 0);
+        } while(hero.getHealthPoints() > 0 && monster.getHealthPoints() > 0);
 
         printMenus(commands.gameOver);
     }
@@ -171,7 +173,7 @@ public class GameManager {
 
     private void tryGiveHeroNewItem(){
 
-        if(Utils.chance(50)){
+        if(Utils.chance(45)){
             if(Utils.chance(50)){
                 Armor newArmor = (Armor) armorManager.getNewItem(random);
                 hero.getItems().add(newArmor);
