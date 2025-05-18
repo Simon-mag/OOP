@@ -54,7 +54,7 @@ public class GameManager {
         printMenus(commands.start);
         createHero();
         printMonsterStats();
-        tryGiveHeroNewItems();
+        tryGiveHeroNewItem();
 
         int choice;
         do{
@@ -85,7 +85,7 @@ public class GameManager {
                         //Equip  items precent chance armor 20%, weapon 30%//
                         monsterEquipItems();
                         monsterAttack();
-                        tryGiveHeroNewItems();
+                        tryGiveHeroNewItem();
                     }
 
                 } else
@@ -169,7 +169,7 @@ public class GameManager {
         hero.getItems().add(weapon);
     }
 
-    private void tryGiveHeroNewItems(){
+    private void tryGiveHeroNewItem(){
 
         if(Utils.chance(50)){
             if(Utils.chance(50)){
