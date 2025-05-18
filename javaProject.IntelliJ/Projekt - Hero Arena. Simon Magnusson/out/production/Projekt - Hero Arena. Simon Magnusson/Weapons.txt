@@ -1,10 +1,10 @@
 Weapon - Adamantium Scimitar - 7
 Weapon - Wooden Stick - 4
-Weapon - Excalibur - 15
+Weapon - Excalibur - 20
 Weapon - Crossbow - 8
 Weapon - Steel Longsword - 9
 Weapon - Flame Whip - 10
 Weapon - Ice Rod - 7
 Weapon - Diamond Lance - 6
 Weapon - Spiked Gloves - 4
-Weapon - Iron Shortsword - 5
+Weapon - Iron Shortsword - 20

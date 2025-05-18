@@ -67,7 +67,8 @@ public class GameManager {
                         case 2 -> commands.view;
                         case 3 -> commands.equip;
                         case 4 -> commands.exit;
-                        default -> commands.menu;
+                        default -> commands.gameOver;
+
                     };
 
                     if(selectedCommand == commands.exit){
@@ -77,7 +78,7 @@ public class GameManager {
                     //execute choice//
                     handleChoice(selectedCommand);
 
-                    if(selectedCommand == commands.attack) {
+                    if(selectedCommand == commands.attack && monster.getHealthPoints() > 0) {
                         //Monsters turn//
                         //Equip  items precent chance armor 20%, weapon 30%//
                         monsterEquipItems();
@@ -93,7 +94,7 @@ public class GameManager {
                 scanner.nextLine();
             }
 
-        } while(hero.getHealthPoints() <= 0 || monster.getHealthPoints() <= 0);
+        } while(hero.getHealthPoints() >= 0 && monster.getHealthPoints() >= 0);
 
         printMenus(commands.gameOver);
     }
@@ -104,8 +105,7 @@ public class GameManager {
         switch (command){
             case attack -> {
                 int damage = hero.getWeapon().getValue() - monster.getArmor().getValue();
-                if(damage <= 0)
-                    damage = 0;
+                if(damage <= 0) damage = 0;
 
                 monster.setHealthPoints( (monster.getHealthPoints() - damage) );
                 hero.attack(monster,damage);
@@ -149,14 +149,14 @@ public class GameManager {
 
     private void createHero(){
         System.out.print("Enter your hero's name: ");
-        Armor armor = new Armor("Leather Armor","Armor", 2);
-        Weapon weapon = new Weapon("Iron Shortsword", "Weapon", 5);
+        Armor armor =  (Armor) armorManager.getSpecificItem(10);
+        Weapon weapon =  (Weapon) weaponManager.getSpecificItem(10);
         hero = new Hero(scanner.nextLine(),
                 30,
                 armor,
                 weapon
         );
-        System.out.printf("%n%s starts with:%nWeapon: %s Damage: %d%nArmor: %s Value: %d%n",
+        System.out.printf("%n%s starts with:%nWeapon: %s Damage: (%d)%nArmor: %s Value: (%d)%n",
                 hero.getName(),
                 weapon.getName(),
                 weapon.getValue(),
@@ -172,11 +172,11 @@ public class GameManager {
         if(Utils.chance(40)){
             if(Utils.chance(50)){
                 Armor newArmor = (Armor) armorManager.getNewItem(random);
-                hero.getItems().add(armorManager.getNewItem(random));
+                hero.getItems().add(newArmor);
                 hero.printGiveItem(newArmor);
             } else {
                 Weapon newWeapon = (Weapon) weaponManager.getNewItem(random);
-                hero.getItems().add(weaponManager.getNewItem(random));
+                hero.getItems().add(newWeapon);
                 hero.printGiveItem(newWeapon);
             }
         }
@@ -184,6 +184,8 @@ public class GameManager {
 
     private void monsterAttack(){
         int damage = monster.getWeapon().getValue() - hero.getArmor().getValue();
+        if(damage <= 0) damage = 0;
+
         hero.setHealthPoints(hero.getHealthPoints() - damage);
         monster.attack(hero,damage);
     }
@@ -264,7 +266,7 @@ public class GameManager {
                     System.out.printf("The %s has defeated you!", monster.getName());
                     printMenus(commands.exit);
                 } else {
-                    System.out.printf("You have defeated the %s. Congratulations!", monster.getName());
+                    System.out.printf("You have defeated the %s. Congratulations!%n", monster.getName());
                     printMenus(commands.exit);
                 }
             }

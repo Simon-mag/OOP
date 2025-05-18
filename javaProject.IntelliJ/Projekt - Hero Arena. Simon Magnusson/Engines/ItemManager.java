@@ -67,4 +67,8 @@ public class ItemManager {
         Object[] keys = inventory.keySet().toArray();
         return inventory.get((Integer) keys[random.nextInt(keys.length)]);
     }
+
+    public Item getSpecificItem(int key){
+        return inventory.get(key);
+    }
 }

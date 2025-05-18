@@ -7,4 +7,4 @@ Weapon - Flame Whip - 10
 Weapon - Ice Rod - 7
 Weapon - Diamond Lance - 6
 Weapon - Spiked Gloves - 4
-Weapon - Iron Shortsword - 6
+Weapon - Iron Shortsword - 20
