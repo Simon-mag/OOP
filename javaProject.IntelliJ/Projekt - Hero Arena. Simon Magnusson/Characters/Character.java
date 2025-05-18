@@ -37,13 +37,13 @@ public abstract class Character {
 
     public void printEquipItem(Item item){
         if(item.getClass().equals(Armor.class)){
-            System.out.printf("%s equips new Armor: %s (with %d armor)",
+            System.out.printf("%s equips Armor: %s (with %d armor)%n",
                     getName(),
                     item.getName(),
                     item.getValue()
             );
         } else{
-            System.out.printf("%s equips new weapon: %s (with %d damage)",
+            System.out.printf("%s equips weapon: %s (with %d damage)%n",
                     getName(),
                     item.getName(),
                     item.getValue()

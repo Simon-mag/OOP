@@ -3,7 +3,6 @@ package Characters;
 import Items.Armor;
 import Items.Item;
 import Items.Weapon;
-
 import java.util.ArrayList;
 
 public class Hero extends Character {
@@ -13,60 +12,45 @@ public class Hero extends Character {
         super(name, healthPoints, armor,weapon);
     }
 
-    public void attack(Monster monster){
+    public void attack(Monster monster, int damage){
         String monsterName = monster.getName();
         Weapon weapon = getWeapon();
-        System.out.printf("%s attacks %s with %s for %d damage...%n%d HP remaining for %s",
+        System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n",
                 getName(),
                 monsterName,
                 weapon.getName(),
-                weapon.getValue(),
+                damage,
                 monster.getHealthPoints(),
                 monsterName
         );
     }
 
-//    public void printEquipWeapon(){
-//        Weapon weapon = getWeapon();
-//        System.out.printf("%s equips new weapon: %s (with %d damage)",
-//                getName(),
-//                weapon.getName(),
-//                weapon.getValue()
-//        );
-//    }
-//    public void printEquipArmor(){
-//        Armor armor = getArmor();
-//        System.out.printf("%s equips new Armor: %s (with %d armor)",
-//                getName(),
-//                armor.getName(),
-//                armor.getValue()
-//        );
-//    }
-
     public void printGiveItem(Item item){
+        String currentItemClass;
         if(item.getClass().equals(Armor.class))
-            System.out.printf("%s has acquired a new %s: %s (Defence: %2d)!",
-                    getName(),
-                    Armor.class,
-                    item.getName(),
-                    item.getValue()
-                    );
-        else
-            System.out.printf("%s has acquired a new %s: %s (Attack : %2d)!",
-                    getName(),
-                    Weapon.class,
-                    item.getName(),
-                    item.getValue()
-            );
+            currentItemClass = "Armor";
+        else currentItemClass = "Weapon";
+
+        System.out.printf("%s has acquired a new %s: %s (%s: %2d)! %n%n",
+                getName(),
+                currentItemClass,
+                item.getName(),
+                item.getClass().getSimpleName(),
+                item.getValue()
+        );
     }
 
 
     public void viewInventory(){
+        int i = 1;
         for(Item item : items){
-            int i = 1;
+
             String line = String.format("%2d: %s",i, item.toString());
-            System.out.printf("║ %-40s ║\n",line);
+            System.out.printf("║ %-43s ║%n",line);
             ++i;
+        }
+        if(i == 1){
+            System.out.printf("║ %-43s ║%n","No items found yet!");
         }
     }
     public ArrayList<Item> getItems(){ return items;}

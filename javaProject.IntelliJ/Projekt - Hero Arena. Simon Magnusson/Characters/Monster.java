@@ -9,12 +9,12 @@ public class Monster extends Character {
         super(name,healthPoints,armor,weapon);
     }
 
-    public void attack(Hero hero){
-        System.out.printf("%s attacks %s with %s for %d damage...%n%d HP remaining for %s ",
+    public void attack(Hero hero, int damage){
+        System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n%n",
                 getName(),
                 hero.getName(),
                 getWeapon().getName(),
-                getWeapon().getValue(),
+                damage,
                 hero.getHealthPoints(),
                 hero.getName()
         );

@@ -2,6 +2,7 @@ package Engines;
 
 import Items.Armor;
 import Items.Item;
+import Items.Weapon;
 
 import java.io.*;
 import java.util.HashMap;
@@ -17,9 +18,11 @@ public class ItemManager {
 
         try(BufferedReader reader = new BufferedReader(new FileReader(inputInventory))){
             String line;
+            int index = 1;
             while ((line = reader.readLine()) != null){
-                int index = 1;
+
                 String[] parts = line.trim().split("-");
+
                 if(parts.length != 3){
                     System.out.println("Invalid Item format " + line);
                     continue;
@@ -27,16 +30,20 @@ public class ItemManager {
 
                 String type = parts[0].trim();
                 String name = parts[1].trim();
-                int value = Integer.parseInt( parts[2].trim());
+                int value = Integer.parseInt(parts[2].trim());
 
                 if(validateItemInfo(name,value)){
-                    if(type.equalsIgnoreCase("armor")){
-                        Armor armor = new Armor(name, type, value);
-                        inventory.put(index,armor);
-                        ++index;
-                    }
+                    Item item;
+                    if(type.equalsIgnoreCase("armor"))
+                        item = new Armor(name, type, value);
+                    else
+                        item = new Weapon(name, type, value);
+
+                    inventory.put(index,item);
+                    ++index;
                 }
             }
+
         } catch (NumberFormatException e){
             System.out.println("Item is in wrong format");
         } catch (RuntimeException e){
@@ -50,14 +57,15 @@ public class ItemManager {
 
     private boolean validateItemInfo(String name, int value){
         return name.matches("^[A-Za-z ]{1,20}$") &&
-                (value < 30 && value > 0);
+                (value < 60 && value > 0);
     }
 
 
     public Item getNewItem(Random random){
-        int value = (random.nextInt() % inventory.size()) + 1;
-        return inventory.get(value);
-    }
+        if(inventory.isEmpty())
+            return null;
 
-    public Map<Integer, Item> getInventory() {return inventory;}
+        Object[] keys = inventory.keySet().toArray();
+        return inventory.get((Integer) keys[random.nextInt(keys.length)]);
+    }
 }
