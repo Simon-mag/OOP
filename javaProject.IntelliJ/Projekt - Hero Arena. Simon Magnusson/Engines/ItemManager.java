@@ -3,7 +3,6 @@ package Engines;
 import Items.Armor;
 import Items.Item;
 import Items.Weapon;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class ItemManager {
         } catch (NumberFormatException e){
             System.out.println("Item is in wrong format");
         } catch (RuntimeException e){
-            System.out.print("Item did not have valid formated information in \"Armors.txt\": " + e.getMessage());
+            System.out.print("Item did not have valid formated information in text file: " + e.getMessage());
         } catch (IOException e){
             System.out.println("Failed to read File");
             throw new RuntimeException("Error while reading inventory files");

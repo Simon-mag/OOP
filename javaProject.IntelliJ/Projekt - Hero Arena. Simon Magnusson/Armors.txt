@@ -7,4 +7,4 @@ Armor - Chainmail - 5
 Armor - Torn shirt - 1
 Armor - Flaming robe - 3
 Armor - Wooden shield - 5
-Armor - Leather armor - 2
+Armor - Leather armor - 4

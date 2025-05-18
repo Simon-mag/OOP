@@ -40,7 +40,6 @@ public class Hero extends Character {
         );
     }
 
-
     public void viewInventory(){
         int i = 1;
         for(Item item : items){

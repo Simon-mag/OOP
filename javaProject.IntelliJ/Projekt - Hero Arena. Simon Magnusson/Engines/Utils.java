@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Utils {
     private static final Random random = new Random();
     private static final Scanner scanner = new Scanner(System.in);
+
     // Returns true with the given percentage chance //
     public static boolean chance(int percent) {
         if (percent < 0) return false;

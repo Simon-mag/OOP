@@ -48,21 +48,19 @@ public class GameManager {
     }
 
 
-    public void run(){
-        int choice;
+    public void runHeroArena(){
 
         printMenus(commands.start);
         createHero();
         printMonsterStats();
 
+        int choice;
         do{
-
-            // give hero new item (40% chance), Done //
-            //Hero's Turn//
-
             printMenus(commands.menu);
+
             try{
                 choice = scanner.nextInt();
+
                 if(choice >= 1 && choice <= 4){
                     commands selectedCommand = switch (choice){
                         case 1 -> commands.attack;
@@ -76,12 +74,12 @@ public class GameManager {
                         printMenus(selectedCommand);
                         return;
                     }
-                    //execute choice, Done//
+                    //execute choice//
                     handleChoice(selectedCommand);
 
                     if(selectedCommand == commands.attack) {
                         //Monsters turn//
-                        //Equip  items precent chance armor 20%, weapon 30%, Done//
+                        //Equip  items precent chance armor 20%, weapon 30%//
                         monsterEquipItems();
                         monsterAttack();
                         tryGiveHeroNewItems();
@@ -90,14 +88,13 @@ public class GameManager {
                 } else
                     System.out.println("Invalid option, choose from menu (1-4)\n");
 
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e){
                 System.out.println("Invalid input, choose from menu! (1-4)\n");
                 scanner.nextLine();
             }
 
-        }while(hero.getHealthPoints() > 0 && monster.getHealthPoints() > 0);
+        } while(hero.getHealthPoints() <= 0 || monster.getHealthPoints() <= 0);
 
-        //End screen, display who won//
         printMenus(commands.gameOver);
     }
 
@@ -125,17 +122,15 @@ public class GameManager {
 
                     printMenus(command);
                     try {
-                        int item = scanner.nextInt();
+                        int chosenItem = scanner.nextInt();
 
-                        if(item <= heroInventory.size() && item >= 1) {
+                        if(chosenItem <= heroInventory.size() && chosenItem >= 1) {
+                            Item newItem = heroInventory.get(chosenItem - 1);
 
-                            Item newItem = heroInventory.get(item - 1);
-                            if(newItem.getClass().equals(Armor.class)) {
+                            if(newItem.getClass().equals(Armor.class))
                                 hero.setArmor((Armor) newItem);
-                            }
-                            else {
-                                hero.setWeapon((Weapon) newItem);
-                            }
+                            else hero.setWeapon((Weapon) newItem);
+
                             hero.printEquipItem(newItem);
                             break;
                         } else {

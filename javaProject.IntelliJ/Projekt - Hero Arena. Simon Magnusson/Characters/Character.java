@@ -18,36 +18,27 @@ public abstract class Character {
         this.healthPoints = healthPoints;
     }
 
-    public String getName() {return name;}
-    public Armor getArmor() {return armor;}
-    public Weapon getWeapon() {return weapon;}
-    public int getHealthPoints() {return healthPoints;}
-
-    public void setHealthPoints(int newHealth){
-        this.healthPoints = newHealth;
-    }
-
-    public void setArmor(Armor armor) {
-        this.armor = armor;
-    }
-
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
     public void printEquipItem(Item item){
-        if(item.getClass().equals(Armor.class)){
+        if(item.getClass().equals(Armor.class))
             System.out.printf("%s equips Armor: %s (with %d armor)%n",
                     getName(),
                     item.getName(),
                     item.getValue()
             );
-        } else{
+        else
             System.out.printf("%s equips weapon: %s (with %d damage)%n",
                     getName(),
                     item.getName(),
                     item.getValue()
             );
-        }
     }
+
+    public String getName() {return name;}
+    public Armor getArmor() {return armor;}
+    public Weapon getWeapon() {return weapon;}
+    public int getHealthPoints() {return healthPoints;}
+
+    public void setHealthPoints(int newHealth){this.healthPoints = newHealth;}
+    public void setArmor(Armor armor) {this.armor = armor;}
+    public void setWeapon(Weapon weapon) {this.weapon = weapon;}
 }
