@@ -1,9 +1,9 @@
 package Characters;
-
 import Items.Armor;
 import Items.Item;
 import Items.Weapon;
 import java.util.ArrayList;
+
 
 public class Hero extends Character {
     private final ArrayList<Item> items = new ArrayList<>();

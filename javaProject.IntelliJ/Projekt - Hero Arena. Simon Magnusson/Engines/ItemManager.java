@@ -1,5 +1,4 @@
 package Engines;
-
 import Items.Armor;
 import Items.Item;
 import Items.Weapon;
@@ -11,7 +10,6 @@ import java.util.Random;
 
 public class ItemManager {
     private final Map<Integer,Item> inventory = new HashMap<>();
-
 
     public ItemManager(File inputInventory)throws RuntimeException {
 
@@ -42,7 +40,6 @@ public class ItemManager {
                     ++index;
                 }
             }
-
         } catch (NumberFormatException e){
             System.out.println("Item is in wrong format");
         } catch (RuntimeException e){
@@ -53,12 +50,10 @@ public class ItemManager {
         }
     }
 
-
     private boolean validateItemInfo(String name, int value){
         return name.matches("^[A-Za-z ]{1,20}$") &&
                 (value < 60 && value > 0);
     }
-
 
     public Item getNewItem(Random random){
         if(inventory.isEmpty())
