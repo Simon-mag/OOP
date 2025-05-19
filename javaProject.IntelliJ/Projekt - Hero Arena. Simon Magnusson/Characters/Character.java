@@ -33,15 +33,15 @@ public abstract class Character {
             );
     }
 
-    public abstract void attack(Character character, int damage);
+    public abstract void printAttack(Character character, int damage);
 
     public String getName() {return name;}
     public Armor getArmor() {return armor;}
     public Weapon getWeapon() {return weapon;}
     public int getHealthPoints() {return healthPoints;}
 
-    public void setHealthPoints(int newHealth){this.healthPoints = newHealth;}
     public void setArmor(Armor armor) {this.armor = armor;}
     public void setWeapon(Weapon weapon) {this.weapon = weapon;}
+    public void setHealthPoints(int newHealth){this.healthPoints = newHealth;}
 
 }

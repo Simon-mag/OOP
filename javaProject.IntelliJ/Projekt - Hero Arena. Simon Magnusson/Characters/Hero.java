@@ -13,7 +13,7 @@ public class Hero extends Character {
     }
 
     @Override
-    public void attack(Character character, int damage){
+    public void printAttack(Character character, int damage){
         String monsterName = character.getName();
         Weapon weapon = getWeapon();
         System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n",

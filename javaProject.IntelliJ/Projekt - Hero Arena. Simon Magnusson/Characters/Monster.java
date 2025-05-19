@@ -9,7 +9,7 @@ public class Monster extends Character {
         super(name,healthPoints,armor,weapon);
     }
     @Override
-    public void attack(Character character, int damage){
+    public void printAttack(Character character, int damage){
         String name = character.getName();
         System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n%n",
                 getName(),

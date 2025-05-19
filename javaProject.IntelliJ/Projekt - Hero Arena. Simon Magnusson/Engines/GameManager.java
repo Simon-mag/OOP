@@ -12,9 +12,9 @@ import static Engines.Utils.pause;
 public class GameManager {
     private final ItemManager weaponManager;
     private final ItemManager armorManager;
-    private Hero hero;
-    private final Monster monster;
     private final int startHealth = 40;
+    private final Monster monster;
+    private Hero hero;
 
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
@@ -25,7 +25,6 @@ public class GameManager {
         attack,
         view,
         equip,
-        emptyInventory,
         exit,
         gameOver
     }
@@ -42,7 +41,7 @@ public class GameManager {
                     (Weapon) weaponManager.getNewItem(random)
             );
 
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e){
             System.out.println("Couldn't create a game!" + e.getMessage());
             throw new ExceptionInInitializerError("Terminating game from error");
         }
@@ -70,7 +69,6 @@ public class GameManager {
                         case 3 -> commands.equip;
                         case 4 -> commands.exit;
                         default -> commands.gameOver;
-
                     };
 
                     if(selectedCommand == commands.exit){
@@ -90,8 +88,7 @@ public class GameManager {
                         tryGiveHeroNewItem();
                     }
 
-                } else
-                    System.out.println("Invalid option, choose from menu (1-4)\n");
+                } else System.out.println("Invalid option, choose from menu (1-4)\n");
 
             } catch (InputMismatchException e){
                 System.out.println("Invalid input, choose from menu! (1-4)\n");
@@ -112,17 +109,12 @@ public class GameManager {
                 if(damage <= 0) damage = 0;
 
                 monster.setHealthPoints( (monster.getHealthPoints() - damage) );
-                hero.attack(monster,damage);
+                hero.printAttack(monster,damage);
             }
             case view -> printMenus(command);
             case equip -> {
                 ArrayList<Item> heroInventory = hero.getItems();
                 while(true) {
-
-                    if(heroInventory.isEmpty()){
-                        printMenus(commands.emptyInventory);
-                        break;
-                    }
 
                     printMenus(command);
                     try {
@@ -152,9 +144,10 @@ public class GameManager {
     }
 
     private void createHero(){
-        System.out.print("Enter your hero's name: ");
-        Armor armor =  (Armor) armorManager.getSpecificItem(10);
         Weapon weapon =  (Weapon) weaponManager.getSpecificItem(10);
+        Armor armor =  (Armor) armorManager.getSpecificItem(10);
+        System.out.print("Enter your hero's name: ");
+
         hero = new Hero(scanner.nextLine(),
                 startHealth,
                 armor,
@@ -191,7 +184,7 @@ public class GameManager {
         if(damage <= 0) damage = 0;
 
         hero.setHealthPoints(hero.getHealthPoints() - damage);
-        monster.attack(hero,damage);
+        monster.printAttack(hero,damage);
     }
 
     private void monsterEquipItems(){
@@ -210,9 +203,10 @@ public class GameManager {
     }
 
     private void printMonsterStats(){
-        String name = monster.getName();
         Weapon weapon = monster.getWeapon();
         Armor armor = monster.getArmor();
+        String name = monster.getName();
+
         System.out.printf("%nYou encounter a %s - Time for battle!%n",name);
         System.out.printf("The %s is equipped with a %s (%d) and %s (%d)!%n%n",
                 name,
@@ -225,8 +219,11 @@ public class GameManager {
 
     private void printMenus(commands command){
         switch (command) {
-            case start -> System.out.println("╔═  WELCOME TO HERO ARENA  ═╗\n" +
-                        "╚═ Please create your hero ═╝ ");
+            case start -> System.out.println("""
+                    
+                    
+                    ╔═  WELCOME TO HERO ARENA  ═╗
+                    ╚═ Please create your hero ═╝\s""");
 
             case menu -> {
                 System.out.println("╔════════════════════════╗");
@@ -255,14 +252,6 @@ public class GameManager {
                 hero.viewInventory();
                 System.out.println("╚═════════════════════════════════════════════╝");
                 System.out.print("Enter item number: ");
-            }
-            case emptyInventory -> {
-                System.out.println("\n╔═════════════════════════════════════════════╗");
-                System.out.println("║             Choose item to equip            ║");
-                System.out.println("║                                             ║");
-                hero.viewInventory();
-                System.out.println("╚═════════════════════════════════════════════╝");
-                pause();
             }
             case exit -> System.out.println("\nExiting game, thanks for playing!\n");
             case gameOver -> {

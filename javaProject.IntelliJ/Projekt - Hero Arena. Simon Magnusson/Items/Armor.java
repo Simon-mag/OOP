@@ -1,6 +1,6 @@
 package Items;
 
-public class Armor extends Item{
+public class Armor extends Item {
 
     public Armor(String name,String type, int armorValue){
         super(name,type,armorValue);

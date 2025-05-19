@@ -11,17 +11,17 @@ import java.util.Random;
 public class ItemManager {
     private final Map<Integer,Item> inventory = new HashMap<>();
 
-    public ItemManager(File inputInventory)throws RuntimeException {
+    public ItemManager(File inputInventory)throws RuntimeException{
 
         try(BufferedReader reader = new BufferedReader(new FileReader(inputInventory))){
             String line;
-            int index = 1;
+            int key = 1;
             while ((line = reader.readLine()) != null){
 
                 String[] parts = line.trim().split("-");
 
                 if(parts.length != 3){
-                    System.out.println("Invalid Item format " + line);
+                    System.out.println("Invalid Item format: " + line);
                     continue;
                 }
 
@@ -36,9 +36,10 @@ public class ItemManager {
                     else
                         item = new Weapon(name, type, value);
 
-                    inventory.put(index,item);
-                    ++index;
-                }
+                    inventory.put(key,item);
+                    ++key;
+                } else
+                    System.out.println("Can't validate item: " + name);
             }
         } catch (NumberFormatException e){
             System.out.println("Item is in wrong format");
@@ -63,7 +64,5 @@ public class ItemManager {
         return inventory.get((Integer) keys[random.nextInt(keys.length)]);
     }
 
-    public Item getSpecificItem(int key){
-        return inventory.get(key);
-    }
+    public Item getSpecificItem(int key){return inventory.get(key);}
 }

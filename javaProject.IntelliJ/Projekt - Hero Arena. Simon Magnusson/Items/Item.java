@@ -13,5 +13,5 @@ public abstract class Item {
 
     public String getName(){return name;}
     public String getType(){return type;}
-    public int getValue()  {return value;}
+    public int getValue(){return value;}
 }

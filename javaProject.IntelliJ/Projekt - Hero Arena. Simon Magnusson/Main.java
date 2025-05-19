@@ -6,9 +6,9 @@ public class Main {
             GameManager gameManager = new GameManager();
             gameManager.runHeroArena();
 
-        } catch (ExceptionInInitializerError e) {
+        } catch (ExceptionInInitializerError e){
             System.out.println(e.getMessage());
-        }catch (Exception e){
+        } catch (Exception e){
             System.out.println("unknown error " + e.getMessage());
             //noinspection CallToPrintStackTrace
             e.printStackTrace();

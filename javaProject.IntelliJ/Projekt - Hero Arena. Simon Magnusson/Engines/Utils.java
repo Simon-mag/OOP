@@ -13,7 +13,7 @@ public class Utils {
         return random.nextInt(100) < percent;
     }
     // Pause the game and wait for Enter input //
-    public static void pause(){
+    public static void pause() {
         System.out.print("Press Enter to continue ->");
         scanner.nextLine();
     }
