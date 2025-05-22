@@ -10,7 +10,7 @@ import java.util.*;
 import static Engines.Utils.pause;
 
 
-public class GameManager {
+public class HeroArena {
     private final ItemManager weaponManager;
     private final ItemManager armorManager;
     private final int startHealth = 40;
@@ -30,7 +30,7 @@ public class GameManager {
         gameOver
     }
 
-    public GameManager()throws ExceptionInInitializerError{
+    public HeroArena()throws ExceptionInInitializerError{
         try {
             this.armorManager = new ItemManager(new File("Armors.txt"));
             this.weaponManager = new ItemManager(new File("Weapons.txt"));
@@ -49,7 +49,7 @@ public class GameManager {
     }
 
 
-    public void runHeroArena(){
+    public void run(){
 
         printMenus(commands.start);
         createHero();
@@ -119,8 +119,8 @@ public class GameManager {
                             Item newItem = heroInventory.get(chosenItem - 1);
 
                             if(newItem.getClass().equals(Armor.class))
-                                hero.setArmor((Armor) newItem);
-                            else hero.setWeapon((Weapon) newItem);
+                                hero.setArmor(newItem);
+                            else hero.setWeapon( newItem);
 
                             hero.printEquipItem(newItem);
                             break;
@@ -162,17 +162,16 @@ public class GameManager {
     private void tryGiveHeroNewItem(){
 
         if(Utils.chance(45)){
-            if(Utils.chance(50)){
-                Armor newArmor = (Armor) armorManager.getNewItem(random);
-                hero.getItems().add(newArmor);
-                hero.printGiveItem(newArmor);
-            } else {
-                Weapon newWeapon = (Weapon) weaponManager.getNewItem(random);
-                hero.getItems().add(newWeapon);
-                hero.printGiveItem(newWeapon);
-            }
+            Item newItem;
+            if(Utils.chance(50))
+                newItem = armorManager.getNewItem(random);
+            else
+                newItem = weaponManager.getNewItem(random);
+
+            hero.getItems().add(newItem);
+            newItem.printReceiveItem(newItem,hero);
         }
-    }
+   }
 
     private void attack(Character attacker, Character defender) {
         int damage = attacker.getWeapon().getValue() - defender.getArmor().getValue();
@@ -185,21 +184,20 @@ public class GameManager {
     private void monsterEquipItems(){
 
         if(Utils.chance(30)){
-            Weapon weapon = (Weapon) weaponManager.getNewItem(random);
+            Item weapon =  weaponManager.getNewItem(random);
             monster.setWeapon(weapon);
-            monster.printEquipItem(weapon);
+            weapon.printEquipItem(weapon,monster);
         }
         if (Utils.chance(20)){
             Armor armor = (Armor) armorManager.getNewItem(random);
             monster.setArmor(armor);
-            monster.printEquipItem(armor);
+            armor.printEquipItem(armor,monster);
         }
-
     }
 
     private void printMonsterStats(){
-        Weapon weapon = monster.getWeapon();
-        Armor armor = monster.getArmor();
+        Item weapon = monster.getWeapon();
+        Item armor = monster.getArmor();
         String name = monster.getName();
 
         System.out.printf("%nYou encounter a %s - Time for battle!%n",name);
@@ -239,6 +237,7 @@ public class GameManager {
                 hero.viewInventory();
                 System.out.println("╚═════════════════════════════════════════════╝");
                 pause();
+                scanner.nextLine();
             }
             case equip -> {
                 System.out.println("\n╔═════════════════════════════════════════════╗");

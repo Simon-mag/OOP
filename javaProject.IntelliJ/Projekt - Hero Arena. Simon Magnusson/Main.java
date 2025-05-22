@@ -1,10 +1,10 @@
-import Engines.GameManager;
+import Engines.HeroArena;
 
 public class Main {
     public static void main(String[] args){
         try {
-            GameManager gameManager = new GameManager();
-            gameManager.runHeroArena();
+            HeroArena gameManager = new HeroArena();
+            gameManager.run();
 
         } catch (ExceptionInInitializerError e){
             System.out.println(e.getMessage());

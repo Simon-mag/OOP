@@ -6,8 +6,8 @@ import Items.Weapon;
 
 public abstract class Character {
 
-    private Armor armor;
-    private Weapon weapon;
+    private Item armor;
+    private Item weapon;
     private int healthPoints;
     private final String name;
 
@@ -38,12 +38,12 @@ public abstract class Character {
     }
 
     public String getName() {return name;}
-    public Armor getArmor() {return armor;}
-    public Weapon getWeapon() {return weapon;}
+    public Item getArmor() {return armor;}
+    public Item getWeapon() {return weapon;}
     public int getHealthPoints() {return healthPoints;}
 
-    public void setArmor(Armor armor) {this.armor = armor;}
-    public void setWeapon(Weapon weapon) {this.weapon = weapon;}
+    public void setArmor(Item armor) {this.armor = armor;}
+    public void setWeapon(Item weapon) {this.weapon = weapon;}
     public void setHealthPoints(int newHealth){this.healthPoints = newHealth;}
 
 }

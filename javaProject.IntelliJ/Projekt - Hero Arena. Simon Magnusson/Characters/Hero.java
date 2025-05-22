@@ -15,7 +15,7 @@ public class Hero extends Character {
     @Override
     public void printAttack(Character character, int damage){
         String monsterName = character.getName();
-        Weapon weapon = getWeapon();
+        Item weapon = getWeapon();
         System.out.printf("%n%s attacks %s with %s for %d damage...%n%d HP remaining for %s%n",
                 getName(),
                 monsterName,
