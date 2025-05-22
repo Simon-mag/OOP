@@ -13,6 +13,8 @@ public class Main {
         System.out.println(division);
         test0.arrayReversing();
 
+        test0.factorial(scanner);
+
 
         scanner.close();
     }

@@ -10,6 +10,10 @@ public abstract class Item {
         this.type = type;
         this.value = value;
     }
+    @Override
+    public String toString() {
+        return name + " " + type + " " + value;
+    }
 
     public String getName(){return name;}
     public String getType(){return type;}

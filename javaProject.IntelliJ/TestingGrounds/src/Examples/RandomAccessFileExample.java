@@ -1,3 +1,5 @@
+package Examples;
+
 import java.io.*;
 
 public class RandomAccessFileExample {

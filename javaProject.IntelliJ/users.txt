@@ -1,2 +1,0 @@
-nomis570,Password123!,Simon,Magnusson,Sverige gatan 3,+46782132436,2000
-MerleLion,SimonRocks!2,Merle,Leeuwestein,Tyska gatan 5, +46098124578,300000

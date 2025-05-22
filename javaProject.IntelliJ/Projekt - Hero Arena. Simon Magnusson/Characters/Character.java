@@ -33,7 +33,9 @@ public abstract class Character {
             );
     }
 
-    public abstract void printAttack(Character character, int damage);
+    public void printAttack(Character character, int damage){
+        System.out.println(character.name + "receives " + damage + " damage");
+    }
 
     public String getName() {return name;}
     public Armor getArmor() {return armor;}

@@ -1,4 +1,5 @@
 package Engines;
+import Characters.Character;
 import Characters.Hero;
 import Characters.Monster;
 import Items.Armor;
@@ -82,7 +83,7 @@ public class GameManager {
                         //Monsters turn//
                         //Equip  items precent chance armor 20%, weapon 30%//
                         monsterEquipItems();
-                        monsterAttack();
+                        attack(monster,hero);
                         if(hero.getHealthPoints() <= 0)
                             break;
                         tryGiveHeroNewItem();
@@ -104,13 +105,7 @@ public class GameManager {
     private void handleChoice(commands command){
 
         switch (command){
-            case attack -> {
-                int damage = hero.getWeapon().getValue() - monster.getArmor().getValue();
-                if(damage <= 0) damage = 0;
-
-                monster.setHealthPoints( (monster.getHealthPoints() - damage) );
-                hero.printAttack(monster,damage);
-            }
+            case attack -> attack(hero,monster);
             case view -> printMenus(command);
             case equip -> {
                 ArrayList<Item> heroInventory = hero.getItems();
@@ -179,12 +174,12 @@ public class GameManager {
         }
     }
 
-    private void monsterAttack(){
-        int damage = monster.getWeapon().getValue() - hero.getArmor().getValue();
-        if(damage <= 0) damage = 0;
+    private void attack(Character attacker, Character defender) {
+        int damage = attacker.getWeapon().getValue() - defender.getArmor().getValue();
+        if (damage < 0) damage = 0;
 
-        hero.setHealthPoints(hero.getHealthPoints() - damage);
-        monster.printAttack(hero,damage);
+        defender.setHealthPoints(defender.getHealthPoints() - damage);
+        attacker.printAttack(defender, damage);
     }
 
     private void monsterEquipItems(){
