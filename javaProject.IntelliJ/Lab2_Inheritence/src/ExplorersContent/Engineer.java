@@ -5,8 +5,6 @@ import Missions.Mission;
 
 public class Engineer extends SpaceExplorer{
 
-    public Engineer(String name){ super(name,"Engineer"); }
-
     public Engineer(String name, Mission mission){ super(name, "Engineer", mission); }
 
     @Override

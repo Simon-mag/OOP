@@ -2,8 +2,8 @@ import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
-        Registry<Student> students = new Registry<>();
-        Registry<Teacher> teachers = new Registry<>();
+        Registry<Person> students = new Registry<>();
+        Registry<Person> teachers = new Registry<>();
 
         Student simon = new Student("Simon");
         Student axel = new Student("Axel");

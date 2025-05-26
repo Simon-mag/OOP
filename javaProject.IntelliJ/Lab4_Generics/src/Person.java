@@ -1,5 +1,5 @@
 public abstract class Person implements Comparable<Person> {
-    private String name;
+    private final String name;
     private final String role;
     protected int id;
 
@@ -27,11 +27,5 @@ public abstract class Person implements Comparable<Person> {
         Person other = (Person) obj;
         return id == other.id && name.equals(other.name) && role.equals(other.role);
     }
-
-
     public String getName(){return name;}
-    public String getRole(){return role;}
-    public int getID() {return id;}
-
-    public void setName(String name){this.name = name;}
 }
