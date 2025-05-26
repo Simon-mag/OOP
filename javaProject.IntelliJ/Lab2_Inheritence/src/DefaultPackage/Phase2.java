@@ -34,9 +34,8 @@ public class Phase2 {
         SpaceExplorer maintenanceCommander = createCommander(maintenanceMission, input);
 
         printTeamInfo(explorationCommander);
-        System.out.println();
         printTeamInfo(maintenanceCommander);
-        System.out.println();
+
 
         Delay.slowOut(":: Team 1 <> Executing mission " + explorationMission.getName());
         printStartMission(explorationCommander);
@@ -104,6 +103,7 @@ public class Phase2 {
                     ex.getMission().getName()
             );
         }
+        System.out.println();
     }
 
     private void printStartPhase2(Mission explorationMission, Mission maintenanceMission){

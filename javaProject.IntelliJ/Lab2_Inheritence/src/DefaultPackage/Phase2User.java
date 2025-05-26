@@ -173,16 +173,15 @@ public class Phase2User {
             case completeMission ->{
                 Delay.slowOut("<> Accessing mission control <>");
                 int selectedTeam = teamSelector();
-                if (selectedTeam == 1) {
-                    Commander selectedCommander = commanders.getFirst();
-                    selectedCommander.completeMission();
+                Commander selectedCommander;
+                if (selectedTeam == 1)
+                    selectedCommander = commanders.getFirst();
+                else
+                    selectedCommander = commanders.get(1);
+
+                selectedCommander.completeMission();
+                if(!selectedCommander.getOnMission())
                     completedMissions.add(selectedCommander.getMission());
-                }
-                if(selectedTeam == 2) {
-                    Commander selectedCommander = commanders.get(1);
-                    selectedCommander.completeMission();
-                    completedMissions.add(selectedCommander.getMission());
-                }
             }
 
         }

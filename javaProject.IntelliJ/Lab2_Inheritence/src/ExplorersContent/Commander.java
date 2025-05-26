@@ -8,7 +8,6 @@ public class Commander extends SpaceExplorer{
     private final String rank = "Commander";
     private SpaceExplorer[] team;
 
-    public Commander(String name){super(name,"Commander");}
     public Commander(String name, Mission mission){super(name,"Commander",mission);}
     public Commander(String name, Mission mission, SpaceExplorer[] team){super(name,"Commander",mission); this.team = team;}
 
@@ -43,7 +42,7 @@ public class Commander extends SpaceExplorer{
         setOnMission(false);
         Delay.slowOut(rank + " " + getName() + " has completed their mission\n");
     }
-    @Override
+
     public SpaceExplorer[] getTeam(){return team;}
 
     @Override

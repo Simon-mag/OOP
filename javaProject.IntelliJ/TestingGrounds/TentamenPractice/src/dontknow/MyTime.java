@@ -1,3 +1,5 @@
+package dontknow;
+
 public class MyTime {
     private int hours;
     private int minutes;
