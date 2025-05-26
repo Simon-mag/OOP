@@ -15,21 +15,6 @@ public class Delay {
         }
     }
 
-//    private static void slowOutNoEndline(String message, int delay) {
-//        playSound();
-//        for(int i = 0; i < message.length(); ++i){
-//            char c = message.charAt(i);
-//            System.out.print(c);
-//            System.out.flush();
-//
-//            try {
-//                Thread.sleep(delay); //40
-//            }catch (InterruptedException e){
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//    }
-
     public static void slowOut(String message){
         playSound();
         for(int i = 0; i < message.length(); ++i){
@@ -63,7 +48,7 @@ public class Delay {
         try {
             Random choice = new Random();
             int pick = (choice.nextInt() % 2) + 1;
-            File soundFile = new File("src/DefaultPackage/sounds/key_presses.Wav");
+            File soundFile;
             switch (pick){
                 case 1 -> soundFile = new File("src/DefaultPackage/sounds/key_presses2.Wav");
                 case 2 -> soundFile = new File("src/DefaultPackage/sounds/key_presses3.Wav");

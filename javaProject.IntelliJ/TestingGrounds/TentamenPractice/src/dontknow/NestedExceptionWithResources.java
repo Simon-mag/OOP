@@ -1,3 +1,5 @@
+package dontknow;
+
 import java.io.*;
 public class NestedExceptionWithResources {
     public static void main(String[] args) {

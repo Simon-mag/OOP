@@ -23,8 +23,6 @@ public abstract class Mission {
     public String getName() {return name;}
     public SpaceVehicle getRocket() {return rocket;}
 
-    public void setDestination(String destination) {this.destination = destination;}
-    public void setDurationDays(int durationDays) {this.durationDays = durationDays;}
     public void setName(String name) {this.name = name;}
-    public void setRocket(SpaceVehicle rocket) {this.rocket = rocket;}
+
 }
